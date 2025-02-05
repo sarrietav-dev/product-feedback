@@ -1,10 +1,24 @@
 <a href="<%= suggestion_path suggestion  %>">
-  <article class="p-6 bg-white rounded-lg space-y-4">
-    <div class="space-y-3">
-      <p class="font-bold text-dark text-sm">
+  <article
+    class="
+      p-6 bg-white rounded-lg space-y-4 flex flex-col md:flex-row md:items-center
+      md:gap-10
+    "
+  >
+    <button
+      class="
+        bg-violet-50 rounded-lg py-1 md:py-2 px-4 md:px-3 md:flex-col items-center gap-2
+        text-dark font-bold hidden md:flex
+      "
+    >
+      <%= image_tag "shared/icon-arrow-up.svg" %>
+      <%= suggestion.upvotes.count %>
+    </button>
+    <div class="space-y-3 grow">
+      <p class="font-bold text-dark text-sm md:text-lg">
         <%= suggestion.title %>
       </p>
-      <p class="text-dark-muted text-sm">
+      <p class="text-dark-muted text-sm md:text-base">
         <%= suggestion.description %>
       </p>
       <button
@@ -17,11 +31,21 @@
       </button>
     </div>
     <div class="flex justify-between">
-      <button class="bg-violet-50 rounded-lg py-1 px-4 flex items-center gap-2">
+      <button
+        class="
+          bg-violet-50 rounded-lg py-1 px-4 flex items-center gap-2 text-dark font-bold
+          md:hidden
+        "
+      >
         <%= image_tag "shared/icon-arrow-up.svg" %>
         <%= suggestion.upvotes.count %>
       </button>
-      <button class="rounded-lg py-1 px-4 flex items-center gap-2">
+      <button
+        class="
+          rounded-lg py-1 px-4 flex items-center gap-2 text-dark font-bold
+          <%= 'opacity-50' if suggestion.comments.count === 0  %>
+        "
+      >
         <%= image_tag "shared/icon-comments.svg" %>
         <%= suggestion.comments.count %>
       </button>
