@@ -1,20 +1,87 @@
 <nav
   class="
-    bg-gradient-to-tr from-rose-500 via-purple-600 to-sky-500 flex justify-between
-    items-center px-6 py-4
+    bg-gradient-to-tr md:bg-violet-50 md:bg-none from-rose-500 via-purple-600
+    to-sky-500 flex justify-between items-center px-6 py-4 md:justify-evenly
   "
 >
-  <div>
+  <div
+    class="
+      md:rounded-lg md:bg-gradient-to-tr from-rose-500 via-purple-600 to-sky-500
+      md:p-6 md:w-56 md:h-44 flex flex-col justify-end
+    "
+  >
     <p class="font-bold text-white">
       Frontend Mentor
     </p>
     <p class="font-medium text-sm text-white">Feedback board</p>
   </div>
-  <button>
+  <div
+    class="
+      hidden md:flex bg-white p-6 max-w-56 h-44 rounded-lg flex-wrap gap-2 items-start
+    "
+  >
+    <button
+      class="
+        bg-violet-50 rounded-lg py-1.5 px-4 flex items-center gap-2 text-indigo-600
+        font-semibold text-xs
+      "
+    >
+      All
+    </button>
+    <% for category in @categories %>
+      <button
+        class="
+          bg-violet-50 rounded-lg py-1.5 px-4 flex items-center gap-2 text-indigo-600
+          font-semibold text-xs <%= category.name.length == 2 ? 'uppercase' : 'capitalize'  %>
+        "
+      >
+        <%= category.name %>
+      </button>
+    <% end %>
+  </div>
+  <div
+    class="
+      hidden md:grid grid-cols-3 flex-col bg-white px-6 py-5 md:max-w-56 h-full
+      rounded-lg flex-wrap gap-2 items-baseline justify-center
+    "
+  >
+    <h2 class="text-dark text-lg font-bold col-span-2 mb-2">Roadmap</h2>
+    <a
+      class="text-sm text-primary font-semibold underline text-right"
+      href="/roadmap"
+    >View</a>
+    <div class="flex col-span-2 items-center gap-4">
+      <div class="w-2 h-2 bg-orange-300 rounded-full"></div>
+      <span>Planned</span>
+    </div>
+    <span class="text-right"><%= @planned_count %></span>
+    <div class="flex items-center col-span-2 gap-4">
+      <div class="w-2 h-2 bg-fuchsia-500 rounded-full"></div>
+      <span class="">In-Progress</span>
+    </div>
+    <span class="text-right"><%= @in_progress_count %></span>
+    <div class="flex items-center col-span-2 gap-4">
+      <div class="w-2 h-2 bg-blue-400 rounded-full"></div>
+      <span>Live</span>
+    </div>
+    <span class="text-right"><%= @live_count %></span>
+  </div>
+  <button class="md:hidden">
     <%= image_tag "shared/mobile/icon-hamburger.svg" %>
   </button>
 </nav>
-<div class="bg-dark flex justify-between px-6 py-2">
+<div
+  class="
+    bg-dark flex justify-between md:justify-start gap-8 px-6 py-2 md:mx-10
+    md:rounded-lg
+  "
+>
+  <div class="hidden md:flex items-center gap-4">
+    <%= image_tag "suggestions/icon-suggestions.svg" %>
+    <p class="text-white text-lg font-bold">
+      <span><%= @suggestions.count %></span>&nbsp;Suggestions
+    </p>
+  </div>
   <div>
     <label htmlFor="sort" class="text-white text-sm">Sort by:</label>
     <select
@@ -32,6 +99,7 @@
   <button
     class="
       bg-secondary text-white font-bold flex rounded-xl px-4 py-2 items-center text-sm
+      md:ml-auto
     "
   >
     <div>

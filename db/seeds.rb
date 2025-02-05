@@ -22,11 +22,15 @@ current_user = User.create!(
   username: current_user_data['username']
 )
 
+[ "ui", "ux", "enhancement", "bug", "feature" ].each do |category|
+  Category.find_or_create_by!(name: category)
+end
+
 # Seed product requests and their comments/replies
 data['productRequests'].each do |request_data|
   suggestion = Suggestion.create!(
     title: request_data['title'],
-    category_id: Category.find_or_create_by!(name: request_data['category']).id,
+    category_id: Category.find_by(name: request_data['category']).id,
     status: request_data['status'],
     description: request_data['description'],
     user_id: current_user.id
