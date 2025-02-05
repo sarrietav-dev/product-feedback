@@ -14,38 +14,13 @@
     </button>
   </nav>
   <main class="bg-violet-50 px-6 py-8 pt-0 space-y-6">
-    <article class="p-6 bg-white rounded-lg space-y-4">
-      <div class="space-y-3">
-        <p class="font-bold text-dark text-sm md:text-lg">
-          <%= @suggestion.title %>
-        </p>
-        <p class="text-dark-muted text-sm md:text-lg">
-          <%= @suggestion.description %>
-        </p>
-        <button
-          class="
-            bg-violet-50 rounded-lg py-1.5 px-4 flex items-center gap-2 text-indigo-600
-            font-semibold text-xs capitalize
-          "
-        >
-          <%= @suggestion.category.name %>
-        </button>
-      </div>
-      <div class="flex justify-between">
-        <button class="bg-violet-50 rounded-lg py-1 px-4 flex items-center gap-2">
-          <%= image_tag "shared/icon-arrow-up.svg" %>
-          <%= @suggestion.upvotes.count %>
-        </button>
-        <button class="rounded-lg py-1 px-4 flex items-center gap-2">
-          <%= image_tag "shared/icon-comments.svg" %>
-          <%= @suggestion.comments.count %>
-        </button>
-      </div>
-    </article>
+    <%= render @suggestion %>
 
     <div class="p-6 bg-white rounded-lg space-y-4">
-      <h2 class="text-dark text-lg font-bold"><%= @suggestion.comments.count %>
-        Comments</h2>
+      <h2 class="text-dark text-lg font-bold">
+        <%= @suggestion.comments.count %>
+        Comments
+      </h2>
       <ul class="divide-y-2">
         <% for comment in @suggestion.comments %>
           <li class="py-6">
