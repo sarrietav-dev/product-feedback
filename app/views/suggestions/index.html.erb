@@ -40,5 +40,35 @@
     Add feedback
   </button>
 </div>
-<main class="container mx-auto mt-28 px-5 flex">
+<main class="bg-violet-50 px-6 py-8">
+  <div class="flex flex-col gap-4">
+    <% for i in 1..6 %>
+      <article class="p-6 bg-white rounded-lg space-y-4">
+        <div class="space-y-3">
+          <p class="font-bold text-dark text-sm">Add tags for solutions</p>
+          <p class="text-dark-muted text-sm">
+            Easier to search for solutions based on a specific stack.
+          </p>
+          <button
+            class="
+              bg-violet-50 rounded-lg py-1.5 px-4 flex items-center gap-2 text-indigo-600
+              font-semibold text-xs
+            "
+          >
+            Enhancement
+          </button>
+        </div>
+        <div class="flex justify-between">
+          <button class="bg-violet-50 rounded-lg py-1 px-4 flex items-center gap-2">
+            <%= image_tag "shared/icon-arrow-up.svg" %>
+            112
+          </button>
+          <button class="rounded-lg py-1 px-4 flex items-center gap-2">
+            <%= image_tag "shared/icon-comments.svg" %>
+            112
+          </button>
+        </div>
+      </article>
+    <% end %>
+  </div>
 </main>
