@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_02_05_161502) do
+ActiveRecord::Schema[8.0].define(version: 2025_02_05_184800) do
   create_table "categories", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -45,6 +45,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_05_161502) do
     t.integer "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "category_id", null: false
+    t.index ["category_id"], name: "index_suggestions_on_category_id"
     t.index ["user_id"], name: "index_suggestions_on_user_id"
   end
 
@@ -71,6 +73,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_05_161502) do
   add_foreign_key "comments", "users"
   add_foreign_key "replies", "comments"
   add_foreign_key "replies", "users"
+  add_foreign_key "suggestions", "categories"
   add_foreign_key "suggestions", "users"
   add_foreign_key "upvotes", "suggestions"
   add_foreign_key "upvotes", "users"
