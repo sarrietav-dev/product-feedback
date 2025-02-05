@@ -1,0 +1,30 @@
+<a href="<%= suggestion_path suggestion  %>">
+  <article class="p-6 bg-white rounded-lg space-y-4">
+    <div class="space-y-3">
+      <p class="font-bold text-dark text-sm">
+        <%= suggestion.title %>
+      </p>
+      <p class="text-dark-muted text-sm">
+        <%= suggestion.description %>
+      </p>
+      <button
+        class="
+          bg-violet-50 rounded-lg py-1.5 px-4 flex items-center gap-2 text-indigo-600
+          font-semibold text-xs capitalize
+        "
+      >
+        <%= suggestion.category.name %>
+      </button>
+    </div>
+    <div class="flex justify-between">
+      <button class="bg-violet-50 rounded-lg py-1 px-4 flex items-center gap-2">
+        <%= image_tag "shared/icon-arrow-up.svg" %>
+        <%= suggestion.upvotes.count %>
+      </button>
+      <button class="rounded-lg py-1 px-4 flex items-center gap-2">
+        <%= image_tag "shared/icon-comments.svg" %>
+        <%= suggestion.comments.count %>
+      </button>
+    </div>
+  </article>
+</a>

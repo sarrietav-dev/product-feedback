@@ -1,0 +1,38 @@
+<div
+  class="
+    bg-dark flex justify-between md:justify-start gap-8 px-6 py-2 md:mx-10
+    md:rounded-lg lg:w-full lg:mx-0
+  "
+>
+  <div class="hidden md:flex items-center gap-4">
+    <%= image_tag "suggestions/icon-suggestions.svg" %>
+    <p class="text-white text-lg font-bold">
+      <span><%= suggestions_count %></span>&nbsp;Suggestions
+    </p>
+  </div>
+  <div>
+    <label htmlFor="sort" class="text-white text-sm">Sort by:</label>
+    <select
+      name="sort"
+      id="sort"
+      value="upvotes"
+      class="
+        border-none bg-transparent text-white text-sm focus-visible:outline-none
+        focus:ring-primary focus:ring-2 rounded
+      "
+    >
+      <option value="upvotes">Most upvotes</option>
+    </select>
+  </div>
+  <button
+    class="
+      bg-secondary text-white font-bold flex rounded-xl px-4 py-2 items-center text-sm
+      md:ml-auto
+    "
+  >
+    <div>
+      <%= image_tag "shared/icon-plus.svg" %>
+    </div>
+    Add feedback
+  </button>
+</div>
