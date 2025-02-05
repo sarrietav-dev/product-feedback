@@ -14,5 +14,31 @@
     <%= image_tag "shared/mobile/icon-hamburger.svg" %>
   </button>
 </nav>
+<div class="bg-dark flex justify-between px-6 py-2">
+  <div>
+    <label htmlFor="sort" class="text-white text-sm">Sort by:</label>
+    <select
+      name="sort"
+      id="sort"
+      value="upvotes"
+      class="
+        border-none bg-transparent text-white text-sm focus-visible:outline-secondary
+        focus:ring-secondary rounded
+      "
+    >
+      <option value="upvotes">Most upvotes</option>
+    </select>
+  </div>
+  <button
+    class="
+      bg-secondary text-white font-bold flex rounded-xl px-4 py-2 items-center text-sm
+    "
+  >
+    <div>
+      <%= image_tag "shared/icon-plus.svg" %>
+    </div>
+    Add feedback
+  </button>
+</div>
 <main class="container mx-auto mt-28 px-5 flex">
 </main>
