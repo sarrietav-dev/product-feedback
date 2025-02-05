@@ -29,7 +29,7 @@
     >
       All
     </button>
-    <% for category in categories %>
+    <% for category in @categories %>
       <button
         class="
           bg-violet-50 rounded-lg py-1.5 px-4 flex items-center gap-2 text-indigo-600
@@ -55,17 +55,17 @@
       <div class="w-2 h-2 bg-orange-300 rounded-full"></div>
       <span>Planned</span>
     </div>
-    <span class="text-right"><%= planned_count %></span>
+    <span class="text-right"><%= @planned_count %></span>
     <div class="flex items-center col-span-2 gap-4">
       <div class="w-2 h-2 bg-fuchsia-500 rounded-full"></div>
       <span class="">In-Progress</span>
     </div>
-    <span class="text-right"><%= in_progress_count %></span>
+    <span class="text-right"><%= @in_progress_count %></span>
     <div class="flex items-center col-span-2 gap-4">
       <div class="w-2 h-2 bg-blue-400 rounded-full"></div>
       <span>Live</span>
     </div>
-    <span class="text-right"><%= live_count %></span>
+    <span class="text-right"><%= @live_count %></span>
   </div>
   <button class="md:hidden">
     <%= image_tag "shared/mobile/icon-hamburger.svg" %>

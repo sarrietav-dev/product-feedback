@@ -1,7 +1,7 @@
 <div
   class="
     bg-dark flex justify-between md:justify-start gap-8 px-6 py-2 md:mx-10
-    md:rounded-lg lg:w-full lg:mx-0
+    md:rounded-lg lg:w-full lg:mx-0 items-center
   "
 >
   <div class="hidden md:flex items-center gap-4">
@@ -29,13 +29,13 @@
   </div>
   <button
     class="
-      bg-secondary text-white font-bold flex rounded-xl px-4 py-2 items-center text-sm
-      md:ml-auto
+      bg-fuchsia-600 text-white font-bold flex rounded-xl px-4 py-2 items-center
+      text-sm md:ml-auto gap-2
     "
   >
-    <div>
-      <%= image_tag "shared/icon-plus.svg" %>
-    </div>
+    <span class="text-center ">
+      +
+    </span>
     <span class="hidden min-[425px]:inline">Add feedback</span>
   </button>
 </div>

@@ -1,8 +1,8 @@
 <div class="container mx-auto lg:max-w-3xl">
   <nav class="bg-violet-50 px-6 py-8 flex justify-between items-center">
-    <a href="<%= suggestions_path  %>" class="flex items-center gap-4">
+    <a href="<%= suggestions_path  %>" class="flex items-center gap-4 group">
       <%= image_tag "shared/icon-arrow-left.svg" %>
-      Go back
+      <span class="group-hover:underline inline-block">Go back</span>
     </a>
     <button
       class="
@@ -58,7 +58,11 @@
                     <p class="text-sm md:text-base text-dark-muted">@<%= comment.user.username %></p>
                   </div>
                 </div>
-                <button class="bg-transparent text-primary text-xs md:text-sm font-semibold">Reply</button>
+                <button
+                  class="
+                    bg-transparent text-primary text-xs md:text-sm font-semibold hover:underline
+                  "
+                >Reply</button>
               </div>
               <p class="text-sm md:text-base text-dark-muted">
                 <%= comment.content %>
@@ -74,7 +78,7 @@
       <textarea
         class="
           bg-violet-50 rounded w-full border-none text-sm md:text-lg
-          focus-visible:outline-none focus:ring-primary focus:ring-2
+          focus-visible:outline-none focus:ring-primary focus:ring-2 text-dark-muted
         "
         rows="5"
         name="content"
