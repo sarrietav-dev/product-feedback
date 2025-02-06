@@ -2,12 +2,17 @@ class SuggestionsController < ApplicationController
   def index
     @suggestions = Suggestion.all
     @categories = Category.all
-    @planned_count = Suggestion.where(status: "planned").count
-    @in_progress_count = Suggestion.where(status: "in-progress").count
-    @live_count = Suggestion.where(status: "live").count
+    suggestion_counts = Suggestion.group(:status).count
+    @planned_count = suggestion_counts["planned"] || 0
+    @in_progress_count = suggestion_counts["in-progress"] || 0
+    @live_count = suggestion_counts["live"] || 0
+    @live_count = Suggestion.
   end
 
   def show
     @suggestion = Suggestion.find(params[:id])
+  end
+
+  def new
   end
 end
