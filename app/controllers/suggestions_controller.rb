@@ -2,12 +2,29 @@ class SuggestionsController < ApplicationController
   before_action :set_suggestion, only: %i[ edit update show destroy ]
 
   def index
-    @suggestions = Suggestion.all
-    @categories = Category.all
+    sort_options = {
+      "most-upvotes"   => "COUNT(upvotes.id) DESC",
+      "least-upvotes"  => "COUNT(upvotes.id) ASC",
+      "most-comments"  => "COUNT(comments.id) DESC",
+      "least-comments" => "COUNT(comments.id) ASC"
+    }
+
+    sort_order = sort_options[params[:sort]]
+
+    @suggestions = Suggestion
+      .left_joins(:upvotes, :comments)
+      .group(:id)
+      .order(sort_order || "suggestions.created_at DESC")
+
     suggestion_counts = Suggestion.group(:status).count
     @planned_count = suggestion_counts["planned"] || 0
     @in_progress_count = suggestion_counts["in-progress"] || 0
     @live_count = suggestion_counts["live"] || 0
+
+    respond_to do |format|
+      format.html # Standard full-page load
+      format.turbo_stream { render partial: "suggestions/list", locals: { suggestions: @suggestions } }
+    end
   end
 
   def show

@@ -12,7 +12,7 @@
       "
     >
       <%= image_tag "shared/icon-arrow-up.svg" %>
-      <%= suggestion.upvotes.count %>
+      <%= suggestion.upvotes_count %>
     </button>
     <div class="space-y-3 grow">
       <p class="font-bold text-dark text-sm md:text-lg">
@@ -38,16 +38,16 @@
         "
       >
         <%= image_tag "shared/icon-arrow-up.svg" %>
-        <%= suggestion.upvotes.count %>
+        <%= suggestion.upvotes_count %>
       </button>
       <button
         class="
           rounded-lg py-1 px-4 flex items-center gap-2 text-dark font-bold
-          <%= 'opacity-50' if suggestion.comments.count === 0  %>
+          <%= 'opacity-50' if suggestion.comments_count === 0  %>
         "
       >
         <%= image_tag "shared/icon-comments.svg" %>
-        <%= suggestion.comments.count %>
+        <%= suggestion.comments_count %>
       </button>
     </div>
   </article>

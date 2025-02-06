@@ -7,26 +7,13 @@
   <div class="hidden md:flex items-center gap-4">
     <%= image_tag "suggestions/icon-suggestions.svg" %>
     <p class="text-white text-lg font-bold">
-      <span><%= suggestions_count %></span>&nbsp;Suggestions
+      <span><%= Suggestion.count %></span>&nbsp;Suggestions
     </p>
   </div>
-  <div>
-    <label for="sort" class="text-white text-sm">Sort by:</label>
-    <select
-      name="sort"
-      id="sort"
-      value="most-upvotes"
-      class="
-        border-none bg-transparent text-white text-sm focus-visible:outline-none
-        focus:ring-primary focus:ring-2 rounded
-      "
-    >
-      <option class="text-[initial]" value="most-upvotes">Most upvotes</option>
-      <option class="text-[initial]" value="least-upvotes">Least upvotes</option>
-      <option class="text-[initial]" value="most-comments">Most comments</option>
-      <option class="text-[initial]" value="least-comments">Least upvotes</option>
-    </select>
-  </div>
+  <%= form_with url: suggestions_path, method: :get, data: { turbo_frame: "suggestions_list", turbo_action: "advance" } do |form| %>
+    <%= form.label :sort, "Sort by:", class: "text-white text-sm" %>
+    <%= form.select :sort, options_for_select([['Most upvotes', 'most-upvotes'], ['Least upvotes', 'least-upvotes'], ['Most comments', 'most-comments'], ['Least comments', 'least-comments']], params[:sort]), {}, onchange: "this.form.submit();", class: "border-none bg-transparent text-white text-sm focus-visible:outline-none focus:ring-primary focus:ring-2 rounded" %>
+  <% end %>
   <a
     href="<%= new_suggestion_path %>"
     class="
