@@ -1,0 +1,15 @@
+<div class="container mx-auto lg:max-w-3xl">
+  <nav class="bg-violet-50 px-6 py-8 flex justify-between items-center">
+    <%= link_to suggestions_path, class: "flex items-center gap-4 group" do %>
+      <%= image_tag "shared/icon-arrow-left.svg" %>
+      <span class="group-hover:underline inline-block">Go back</span>
+    <% end %>
+  </nav>
+  <main class="bg-violet-50 px-6 py-8 space-y-6">
+    <div class="p-4 md:px-11 md:py-10 bg-white rounded-lg flex flex-col relative">
+      <%= image_tag 'shared/icon-new-feedback.svg', class: "absolute -top-7 md:left-7" %>
+      <h2 class="text-dark text-lg font-bold md:text-2xl mt-6">Create new feedback</h2>
+      <%= render "form", suggestion: @suggestion %>
+    </div>
+  </main>
+</div>

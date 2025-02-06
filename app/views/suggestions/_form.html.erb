@@ -1,0 +1,42 @@
+<%= form_with model: suggestion, class: "space-y-6" do |form|  %>
+  <div class="space-y-4">
+    <div class="space-y-1">
+      <%= form.label :title, "Feedback title", class: "text-sm md:text-base text-dark font-bold" %>
+      <p class="text-sm md:text-base text-dark-muted">Add a short, descriptive headline</p>
+    </div>
+    <%= form.text_field :title, class: "
+          bg-violet-50 rounded w-full border-none text-sm md:text-lg
+          focus-visible:outline-none focus:ring-primary focus:ring-2 text-dark-muted
+        " %>
+  </div>
+  <div class="space-y-4">
+    <div class="space-y-1">
+      <%= form.label :category, "Category", class: "text-sm md:text-base text-dark font-bold" %>
+      <p class="text-sm md:text-base text-dark-muted">Choose a category for your feedback</p>
+    </div>
+    <%= form.collection_select :category_id, Category.order(:name), :id, :capitalized_name, {}, {class: "
+          bg-violet-50 rounded w-full border-none text-sm md:text-lg
+          focus-visible:outline-none focus:ring-primary focus:ring-2 text-dark-muted
+        "} %>
+  </div>
+  <div class="space-y-4">
+    <div class="space-y-1">
+      <%= form.label :category, "Feedback Detail", class: "text-sm md:text-base text-dark font-bold" %>
+      <p class="text-sm md:text-base text-dark-muted">Include any specific comments on what should be improved, added, etc.</p>
+    </div>
+    <%= form.textarea :description, rows: 5, class: "
+          bg-violet-50 rounded w-full border-none text-sm md:text-lg
+          focus-visible:outline-none focus:ring-primary focus:ring-2 text-dark-muted
+        " %>
+  </div>
+  <div class="space-y-4">
+    <%= form.submit "Add Feedback", :class => "
+            bg-fuchsia-600 text-white font-bold rounded-xl px-4 py-3 items-center text-sm
+            md:text-base w-full text-center
+            " %>
+    <%= link_to  "Cancel", suggestions_path, class: "
+            bg-dark text-white font-bold rounded-xl px-4 py-3 items-center text-sm
+            md:text-base w-full text-center block
+            " %>
+  </div>
+<% end %>
