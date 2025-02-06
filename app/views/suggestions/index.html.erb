@@ -13,7 +13,9 @@
   <div class="grow bg-violet-50 ">
     <%= render "suggestions/layout/index_menu", suggestions_count: @suggestions.count %>
     <main class="bg-violet-50 px-6 py-8 lg:px-0">
-      <%= render "list" %>
+      <div class="flex flex-col gap-4">
+        <%= render @suggestions %>
+      </div>
     </main>
   </div>
 </div>

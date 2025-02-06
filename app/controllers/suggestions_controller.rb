@@ -20,11 +20,6 @@ class SuggestionsController < ApplicationController
     @planned_count = suggestion_counts["planned"] || 0
     @in_progress_count = suggestion_counts["in-progress"] || 0
     @live_count = suggestion_counts["live"] || 0
-
-    respond_to do |format|
-      format.html # Standard full-page load
-      format.turbo_stream { render partial: "suggestions/list", locals: { suggestions: @suggestions } }
-    end
   end
 
   def show

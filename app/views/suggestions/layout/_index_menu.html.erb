@@ -10,7 +10,7 @@
       <span><%= Suggestion.count %></span>&nbsp;Suggestions
     </p>
   </div>
-  <%= form_with url: suggestions_path, method: :get, data: { turbo_frame: "suggestions_list", turbo_action: "advance" } do |form| %>
+  <%= form_with url: suggestions_path, method: :get do |form| %>
     <%= form.label :sort, "Sort by:", class: "text-white text-sm" %>
     <%= form.select :sort, options_for_select([['Most upvotes', 'most-upvotes'], ['Least upvotes', 'least-upvotes'], ['Most comments', 'most-comments'], ['Least comments', 'least-comments']], params[:sort]), {}, onchange: "this.form.submit();", class: "border-none bg-transparent text-white text-sm focus-visible:outline-none focus:ring-primary focus:ring-2 rounded" %>
   <% end %>
