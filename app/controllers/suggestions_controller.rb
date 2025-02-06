@@ -6,7 +6,6 @@ class SuggestionsController < ApplicationController
     @planned_count = suggestion_counts["planned"] || 0
     @in_progress_count = suggestion_counts["in-progress"] || 0
     @live_count = suggestion_counts["live"] || 0
-    @live_count = Suggestion.
   end
 
   def show
