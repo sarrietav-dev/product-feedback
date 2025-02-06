@@ -14,7 +14,7 @@ class SuggestionsController < ApplicationController
     @suggestions = Suggestion
       .left_joins(:upvotes, :comments)
       .group(:id)
-      .order(sort_order || "suggestions.created_at DESC")
+      .order(sort_order || "COUNT(upvotes.id) DESC")
 
     suggestion_counts = Suggestion.group(:status).count
     @planned_count = suggestion_counts["planned"] || 0
