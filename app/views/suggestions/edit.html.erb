@@ -10,10 +10,6 @@
       <%= image_tag 'shared/icon-edit-feedback.svg', class: "absolute -top-7 md:left-7" %>
       <h2 class="text-dark text-lg font-bold md:text-2xl mt-6">Editing ‘<%= @suggestion.title %>’</h2>
       <%= render "form", suggestion: @suggestion %>
-      <%= button_to "Delete", suggestion_path(@suggestion), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "
-                        bg-red-600 text-white font-bold rounded-xl px-4 py-3 items-center text-sm
-                        md:text-base w-full text-center block mt-4
-                        "%>
     </div>
   </main>
 </div>

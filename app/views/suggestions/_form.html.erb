@@ -30,25 +30,14 @@
     </div>
     <%= form.text_area :description, rows: 5, class: "form-input" %>
   </div>
-  <div class="space-y-4">
+  <div class="space-y-4 flex flex-col md:grid md:grid-cols-4 md:space-y-0 md:gap-4">
     <% if form.object.new_record? %>
-      <%= form.submit "Add Feedback", :class => "
-                        bg-fuchsia-600 text-white font-bold rounded-xl px-4 py-3 items-center text-sm
-                        md:text-base w-full text-center
-                        " %>
-      <%= link_to  "Cancel", suggestions_path, class: "
-                        bg-dark text-white font-bold rounded-xl px-4 py-3 items-center text-sm
-                        md:text-base w-full text-center block
-                        " %>
+      <%= form.submit "Add Feedback", :class => "btn btn--accent md:col-start-4" %>
+      <%= link_to  "Cancel", suggestions_path, class: "btn md:col-start-3 md:col-end-4 md:row-start-1" %>
     <% else %>
-      <%= form.submit "Save changes", :class => "
-                        bg-fuchsia-600 text-white font-bold rounded-xl px-4 py-3 items-center text-sm
-                        md:text-base w-full text-center
-                        " %>
-      <%= link_to  "Cancel", suggestions_path, class: "
-                        bg-dark text-white font-bold rounded-xl px-4 py-3 items-center text-sm
-                        md:text-base w-full text-center block
-                        " %>
+      <%= form.submit "Save changes", :class => "btn btn--accent md:col-start-4 md:col-end-5" %>
+      <%= link_to  "Cancel", suggestions_path, class: "btn md:col-start-3 md:col-end-4 md:row-start-1" %>
+      <%= link_to "Delete", suggestion_path(@suggestion), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "btn btn--danger md:col-start-1 md:col-end-2 md:row-start-1"%>
     <% end %>
   </div>
 <% end %>
