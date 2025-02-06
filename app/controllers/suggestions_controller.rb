@@ -9,18 +9,27 @@ class SuggestionsController < ApplicationController
       "least-comments" => "COUNT(comments.id) ASC"
     }
 
-    sort_order = sort_options[params[:sort]]
+    sort_order = sort_options.fetch(params[:sort], "COUNT(upvotes.id) DESC")
 
-    @suggestions = Suggestion
-      .left_joins(:upvotes, :comments)
-      .group(:id)
-      .order(sort_order || "COUNT(upvotes.id) DESC")
-
-    suggestion_counts = Suggestion.group(:status).count
-    @planned_count = suggestion_counts["planned"] || 0
-    @in_progress_count = suggestion_counts["in-progress"] || 0
-    @live_count = suggestion_counts["live"] || 0
+  @suggestions = if params[:filter].present? && params[:filter] != "all"
+                   category = Category.find_by(name: params[:filter])
+                   Suggestion.where(category_id: category&.id)
+  else
+                   Suggestion.all
   end
+
+  @suggestions = @suggestions
+    .left_joins(:upvotes, :comments)
+    .group(:id)
+    .order(sort_order)
+
+    status_counts = Suggestion.group(:status).count.transform_values(&:to_i)
+
+    @planned_count = status_counts.fetch("planned", 0)
+    @in_progress_count = status_counts.fetch("in-progress", 0)
+    @live_count = status_counts.fetch("live", 0)
+  end
+
 
   def show
   end
