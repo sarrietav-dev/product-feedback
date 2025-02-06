@@ -1,57 +1,54 @@
 <%= form_with model: suggestion, class: "space-y-6" do |form|  %>
+  <% if suggestion.errors.any? %>
+    <div id="error_explanation" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative">
+      <h2 class="font-bold mb-2"><%= pluralize(suggestion.errors.count, "error") %> prohibited this suggestion from being saved:</h2>
+      <ul class="list-disc pl-5">
+        <% suggestion.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
   <div class="space-y-4">
     <div class="space-y-1">
       <%= form.label :title, "Feedback title", class: "text-sm md:text-base text-dark font-bold" %>
       <p class="text-sm md:text-base text-dark-muted">Add a short, descriptive headline</p>
     </div>
-    <%= form.text_field :title, class: "
-          bg-violet-50 rounded w-full border-none text-sm md:text-lg
-          focus-visible:outline-none focus:ring-primary focus:ring-2 text-dark-muted
-        " %>
+    <%= form.text_field :title, class: "form-input" %>
   </div>
   <div class="space-y-4">
     <div class="space-y-1">
-      <%= form.label :category, "Category", class: "text-sm md:text-base text-dark font-bold" %>
+      <%= form.label :category_id, "Category", class: "text-sm md:text-base text-dark font-bold" %>
       <p class="text-sm md:text-base text-dark-muted">Choose a category for your feedback</p>
     </div>
-    <%= form.collection_select :category_id, Category.order(:name), :id, :capitalized_name, {}, {class: "
-          bg-violet-50 rounded w-full border-none text-sm md:text-lg
-          focus-visible:outline-none focus:ring-primary focus:ring-2 text-dark-muted
-        "} %>
+    <%= form.collection_select :category_id, Category.all, :id, :capitalized_name, {}, {class: "form-input"} %>
   </div>
   <div class="space-y-4">
     <div class="space-y-1">
-      <%= form.label :category, "Feedback Detail", class: "text-sm md:text-base text-dark font-bold" %>
+      <%= form.label :description, "Feedback Detail", class: "text-sm md:text-base text-dark font-bold" %>
       <p class="text-sm md:text-base text-dark-muted">Include any specific comments on what should be improved, added, etc.</p>
     </div>
-    <%= form.textarea :description, rows: 5, class: "
-          bg-violet-50 rounded w-full border-none text-sm md:text-lg
-          focus-visible:outline-none focus:ring-primary focus:ring-2 text-dark-muted
-        " %>
+    <%= form.text_area :description, rows: 5, class: "form-input" %>
   </div>
   <div class="space-y-4">
     <% if form.object.new_record? %>
       <%= form.submit "Add Feedback", :class => "
-            bg-fuchsia-600 text-white font-bold rounded-xl px-4 py-3 items-center text-sm
-            md:text-base w-full text-center
-            " %>
+                        bg-fuchsia-600 text-white font-bold rounded-xl px-4 py-3 items-center text-sm
+                        md:text-base w-full text-center
+                        " %>
       <%= link_to  "Cancel", suggestions_path, class: "
-            bg-dark text-white font-bold rounded-xl px-4 py-3 items-center text-sm
-            md:text-base w-full text-center block
-            " %>
+                        bg-dark text-white font-bold rounded-xl px-4 py-3 items-center text-sm
+                        md:text-base w-full text-center block
+                        " %>
     <% else %>
       <%= form.submit "Save changes", :class => "
-            bg-fuchsia-600 text-white font-bold rounded-xl px-4 py-3 items-center text-sm
-            md:text-base w-full text-center
-            " %>
+                        bg-fuchsia-600 text-white font-bold rounded-xl px-4 py-3 items-center text-sm
+                        md:text-base w-full text-center
+                        " %>
       <%= link_to  "Cancel", suggestions_path, class: "
-            bg-dark text-white font-bold rounded-xl px-4 py-3 items-center text-sm
-            md:text-base w-full text-center block
-            " %>
-      <%= button_to "Delete", @suggestion, method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "
-            bg-red-600 text-white font-bold rounded-xl px-4 py-3 items-center text-sm
-            md:text-base w-full text-center block
-            "%>
+                        bg-dark text-white font-bold rounded-xl px-4 py-3 items-center text-sm
+                        md:text-base w-full text-center block
+                        " %>
     <% end %>
   </div>
 <% end %>

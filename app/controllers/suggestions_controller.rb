@@ -1,5 +1,5 @@
 class SuggestionsController < ApplicationController
-  before_action :set_suggestion, only: [ :edit, :update, :show, :destroy ]
+  before_action :set_suggestion, only: %i[ edit update show destroy ]
 
   def index
     @suggestions = Suggestion.all
@@ -48,6 +48,6 @@ class SuggestionsController < ApplicationController
     end
 
     def suggestion_params
-      params.expect(suggestion: [ :title, :description, :category ])
+      params.expect(suggestion: [ :title, :description, :category_id ])
     end
 end

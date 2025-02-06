@@ -2,12 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
-/*
-
 @layer components {
-  .btn-primary {
-    @apply py-2 px-4 bg-blue-200;
+  .form-input {
+    @apply bg-violet-50 rounded w-full border-none text-sm md:text-lg
+          focus-visible:outline-none focus:ring-primary focus:ring-2 text-dark;
+
+    .field_with_errors & {
+      @apply border border-solid border-red-500;
+    }
   }
 }
-
-*/
