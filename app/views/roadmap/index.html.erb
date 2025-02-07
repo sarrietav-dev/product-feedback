@@ -13,71 +13,57 @@
 </div>
 <!-- Mobile Tabs -->
 <div class="border-b border-b-dark-muted/25 grid grid-cols-3 md:hidden">
-  <%= link_to "Planned (#{Suggestion.where(status: 'planned').count})", roadmap_index_path(status: 'planned'), class: "tab #{'tab--selected' if params[:status].blank? || params[:status] == 'planned'}" %>
-  <%= link_to "In-Progress (#{Suggestion.where(status: 'in-progress').count})", roadmap_index_path(status: 'in-progress'), class: "tab #{'tab--selected' if params[:status] == 'in-progress'}" %>
-  <%= link_to "Live (#{Suggestion.where(status: 'live').count})", roadmap_index_path(status: 'live'), class: "tab #{'tab--selected' if params[:status] == 'live'}" %>
+  <% ["planned", "in-progress", "live"].each do |status| %>
+    <%= link_to "#{status.capitalize} (#{Suggestion.where(status: status).count})", 
+                roadmap_index_path(status: status), 
+                class: "tab #{'tab--selected' if params[:status].blank? && status == 'planned' || params[:status] == status}" %>
+  <% end %>
 </div>
 <div class="p-6">
   <!-- Mobile View -->
   <div class="space-y-1 mb-6 md:hidden">
-    <% if params[:status].blank? || params[:status] == 'planned' %>
-      <p class="font-bold text-lg text-dark">Planned (<%= Suggestion.where(status: "planned").count %>)</p>
-      <p class="text-dark-muted text-sm">Ideas prioritized for research</p>
-    <% elsif params[:status] == 'in-progress' %>
-      <p class="font-bold text-lg text-dark">In-Progress (<%= Suggestion.where(status: "in-progress").count %>)</p>
-      <p class="text-dark-muted text-sm">Features currently being developed</p>
-    <% elsif params[:status] == 'live' %>
-      <p class="font-bold text-lg text-dark">Live (<%= Suggestion.where(status: "live").count %>)</p>
-      <p class="text-dark-muted text-sm">Released features</p>
-    <% end %>
+    <% current_status = params[:status].presence || 'planned' %>
+    <p class="font-bold text-lg text-dark">
+      <%= current_status.capitalize %> (<%= Suggestion.where(status: current_status).count %>)
+    </p>
+    <p class="text-dark-muted text-sm">
+      <%= case current_status
+          when 'planned' then "Ideas prioritized for research"
+          when 'in-progress' then "Features currently being developed"
+          when 'live' then "Released features"
+          end %>
+    </p>
   </div>
+  <!-- Mobile Suggestions List -->
   <div class="flex flex-col gap-4 md:hidden">
-    <%= render partial: 'roadmap/suggestion', collection: @suggestions.select { |item| item.status == (params[:status].presence || 'planned') } %>
+    <%= render partial: 'roadmap/suggestion', collection: @suggestions.select { |s| s.status == current_status } %>
   </div>
-  <!-- Desktop View with Headers Inside Grid -->
-  <div class="grid grid-cols-3 gap-4 mx-10 hidden md:grid auto-rows-min">
-    <!-- Row 1: Column Headers (Locked at the Top) -->
-    <div class="text-center font-bold">
-      Planned (<%= Suggestion.where(status: "planned").count %>)
-      <p class="text-dark-muted">Ideas prioritized for research</p>
-    </div>
-    <div class="text-center font-bold">
-      In-Progress (<%= Suggestion.where(status: "in-progress").count %>)
-      <p class="text-dark-muted">Features currently being developed</p>
-    </div>
-    <div class="text-center font-bold">
-      Live (<%= Suggestion.where(status: "live").count %>)
-      <p class="text-dark-muted">Released features</p>
-    </div>
-    <!-- Row-Based Card Grid (Forcing Each Row to Align) -->
-    <% max_rows = [@suggestions.count { |s| s.status == "planned" },
-                 @suggestions.count { |s| s.status == "in-progress" },
-                 @suggestions.count { |s| s.status == "live" }].max %>
+  <!-- Desktop View -->
+  <div class="grid-cols-3 gap-4 mx-10 hidden md:grid auto-rows-min">
+    <% statuses = { "planned" => "Ideas prioritized for research", 
+                   "in-progress" => "Features currently being developed", 
+                   "live" => "Released features" } %>
+    <!-- Headers Row -->
+    <% statuses.each do |status, description| %>
+      <div class="text-left ">
+        <p class="text-dark font-bold"><%= status.capitalize %> (<%= Suggestion.where(status: status).count %>)</p>
+        <p class="text-dark-muted"><%= description %></p>
+      </div>
+    <% end %>
+    <!-- Calculate Max Rows for Grid Alignment -->
+    <% max_rows = statuses.keys.map { |status| @suggestions.count { |s| s.status == status } }.max %>
+    <!-- Grid Layout for Suggestions -->
     <% (0...max_rows).each do |i| %>
-      <div class="h-full">
-        <% planned = @suggestions.select { |s| s.status == "planned" }[i] %>
-        <% if planned %>
-          <%= render partial: 'roadmap/suggestion', locals: { suggestion: planned } %>
-        <% else %>
-          <div class="invisible h-full"></div>
-        <% end %>
-      </div>
-      <div class="h-full">
-        <% in_progress = @suggestions.select { |s| s.status == "in-progress" }[i] %>
-        <% if in_progress %>
-          <%= render partial: 'roadmap/suggestion', locals: { suggestion: in_progress } %>
-        <% else %>
-          <div class="invisible h-full"></div>
-        <% end %>
-      </div>
-      <div class="h-full">
-        <% live = @suggestions.select { |s| s.status == "live" }[i] %>
-        <% if live %>
-          <%= render partial: 'roadmap/suggestion', locals: { suggestion: live } %>
-        <% else %>
-          <div class="invisible h-full"></div>
-        <% end %>
-      </div>
+      <% statuses.keys.each do |status| %>
+        <div class="h-full">
+          <% suggestion = @suggestions.select { |s| s.status == status }[i] %>
+          <% if suggestion %>
+            <%= render partial: 'roadmap/suggestion', locals: { suggestion: suggestion } %>
+          <% else %>
+            <div class="invisible h-full"></div>
+          <% end %>
+        </div>
+      <% end %>
     <% end %>
   </div>
 </div>
