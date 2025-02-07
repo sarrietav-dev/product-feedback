@@ -7,32 +7,20 @@
     <p class="font-bold text-white text-lg">Roadmap</p>
   </div>
   <%= link_to new_suggestion_path, class: "btn btn--accent flex items-center gap-2" do %>
-    <span class="text-center">
-      +
-    </span>
+    <span class="text-center">+</span>
     <span>Add feedback</span>
   <% end %>
 </div>
+
+<!-- Mobile Tabs -->
 <div class="border-b border-b-dark-muted/25 grid grid-cols-3 md:hidden">
-  <%= link_to "Planned (#{Suggestion.where(status: "planned").count})", roadmap_index_path(status: "planned"), class: "tab #{'tab--selected' if params[:status].blank? || params[:status] == 'planned'}" %>
-  <%= link_to "In-Progress (#{Suggestion.where(status: "in-progress").count})", roadmap_index_path(status: "in-progress"), class: "tab #{'tab--selected' if params[:status] == 'in-progress'}" %>
-  <%= link_to "Live (#{Suggestion.where(status: "live").count})", roadmap_index_path(status: "live"), class: "tab #{'tab--selected' if params[:status] == 'live'}" %>
+  <%= link_to "Planned (#{Suggestion.where(status: 'planned').count})", roadmap_index_path(status: 'planned'), class: "tab #{'tab--selected' if params[:status].blank? || params[:status] == 'planned'}" %>
+  <%= link_to "In-Progress (#{Suggestion.where(status: 'in-progress').count})", roadmap_index_path(status: 'in-progress'), class: "tab #{'tab--selected' if params[:status] == 'in-progress'}" %>
+  <%= link_to "Live (#{Suggestion.where(status: 'live').count})", roadmap_index_path(status: 'live'), class: "tab #{'tab--selected' if params[:status] == 'live'}" %>
 </div>
-<div class="grid-cols-3 mx-10 hidden md:grid">
-  <div class="tab">
-    <p>Planned (<%= Suggestion.where(status: "planned").count %>)</p>
-    <p class="text-dark-muted font-normal text-base">Ideas prioritized for research</p>
-  </div>
-  <div class="tab">
-    <p>In-Progress (<%= Suggestion.where(status: "in-progress").count %>)</p>
-    <p class="text-dark-muted font-normal text-base">Features currently being developed</p>
-  </div>
-  <div class="tab">
-    <p>Live (<%= Suggestion.where(status: "live").count %>)</p>
-    <p class="text-dark-muted font-normal text-base">Released features</p>
-  </div>
-</div>
+
 <div class="p-6">
+  <!-- Mobile View -->
   <div class="space-y-1 mb-6 md:hidden">
     <% if params[:status].blank? || params[:status] == 'planned' %>
       <p class="font-bold text-lg text-dark">Planned (<%= Suggestion.where(status: "planned").count %>)</p>
@@ -45,19 +33,45 @@
       <p class="text-dark-muted text-sm">Released features</p>
     <% end %>
   </div>
+  
   <div class="flex flex-col gap-4 md:hidden">
     <%= render partial: 'roadmap/suggestion', collection: @suggestions.select { |item| item.status == (params[:status].presence || 'planned') } %>
   </div>
-  <div class="grid grid-cols-3 gap-4 items-stretch hidden md:grid">
-    <div class="flex flex-col gap-4 flex-1">
+
+  <!-- Desktop View with Headers Inside Grid -->
+  <div class="grid grid-cols-3 gap-4 mx-10 hidden md:grid">
+  <!-- Column 1: Planned -->
+  <div class="flex flex-col gap-4 h-full">
+    <div class="text-center">
+      <p class="font-bold">Planned (<%= Suggestion.where(status: "planned").count %>)</p>
+      <p class="text-dark-muted text-sm">Ideas prioritized for research</p>
+    </div>
+    <div class="grid auto-rows-fr gap-4">
       <%= render partial: 'roadmap/suggestion', collection: @suggestions.select { |item| item.status == 'planned' } %>
     </div>
-    <div class="flex flex-col gap-4 flex-1">
+  </div>
+
+  <!-- Column 2: In-Progress -->
+  <div class="flex flex-col gap-4 h-full">
+    <div class="text-center">
+      <p class="font-bold">In-Progress (<%= Suggestion.where(status: "in-progress").count %>)</p>
+      <p class="text-dark-muted text-sm">Features currently being developed</p>
+    </div>
+    <div class="grid auto-rows-fr gap-4">
       <%= render partial: 'roadmap/suggestion', collection: @suggestions.select { |item| item.status == 'in-progress' } %>
     </div>
-    <div class="flex flex-col gap-4 flex-1">
+  </div>
+
+  <!-- Column 3: Live -->
+  <div class="flex flex-col gap-4 h-full">
+    <div class="text-center">
+      <p class="font-bold">Live (<%= Suggestion.where(status: "live").count %>)</p>
+      <p class="text-dark-muted text-sm">Released features</p>
+    </div>
+    <div class="grid auto-rows-fr gap-4">
       <%= render partial: 'roadmap/suggestion', collection: @suggestions.select { |item| item.status == 'live' } %>
     </div>
+  </div>
 </div>
 
 </div>

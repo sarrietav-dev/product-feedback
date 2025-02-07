@@ -1,8 +1,7 @@
 <a href="<%= suggestion_path suggestion  %>">
   <article
     class="
-      p-6 bg-white rounded-lg space-y-4 flex flex-col md:items-center
-      md:gap-2 border-t-8
+      p-6 bg-white rounded-lg space-y-4 flex flex-col border-t-8 h-full
       <%= case suggestion.status
         when 'in-progress' then 'border-t-fuchsia-600'
         when 'planned' then 'border-t-warning'
@@ -27,38 +26,27 @@
         <p class="text-dark-muted text-sm">Unknown</p>
       <% end %>
     </div>
-    <div class="space-y-3 grow">
+
+    <!-- Force Title + Description to Take Equal Space -->
+    <div class="space-y-3 flex-grow">
       <p class="font-bold text-dark text-sm md:text-lg">
         <%= suggestion.title %>
       </p>
       <p class="text-dark-muted text-sm md:text-base">
         <%= suggestion.description %>
       </p>
-      <button
-        class="
-          bg-violet-50 rounded-lg py-1.5 px-4 flex items-center gap-2 text-indigo-600
-          font-semibold text-xs capitalize
-        "
-      >
+      <button class="bg-violet-50 rounded-lg py-1.5 px-4 flex items-center gap-2 text-indigo-600 font-semibold text-xs capitalize">
         <%= suggestion.category.name %>
       </button>
     </div>
-    <div class="flex justify-between md:w-full">
-      <button
-        class="
-          bg-violet-50 rounded-lg py-1 px-4 flex items-center gap-2 text-dark font-bold
-          
-        "
-      >
+
+    <!-- Buttons Aligned at Bottom -->
+    <div class="flex justify-between md:w-full mt-auto">
+      <button class="bg-violet-50 rounded-lg py-1 px-4 flex items-center gap-2 text-dark font-bold">
         <%= image_tag "shared/icon-arrow-up.svg" %>
         <%= suggestion.upvotes_count %>
       </button>
-      <button
-        class="
-          rounded-lg py-1 px-4 flex items-center gap-2 text-dark font-bold
-          <%= 'opacity-50' if suggestion.comments_count === 0  %>
-        "
-      >
+      <button class="rounded-lg py-1 px-4 flex items-center gap-2 text-dark font-bold <%= 'opacity-50' if suggestion.comments_count.zero? %>">
         <%= image_tag "shared/icon-comments.svg" %>
         <%= suggestion.comments_count %>
       </button>
