@@ -1,6 +1,6 @@
 <div class="bg-dark px-6 py-7 flex justify-between">
   <div class="space-y-1">
-    <%= link_to request.referer || root_path, class: "flex items-center gap-4 group" do %>
+    <%= link_to 'javascript:history.back()', class: "flex items-center gap-4 group" do %>
       <%= inline_svg_tag "shared/icon-arrow-left.svg", class: "*:!stroke-white" %>
       <span class="group-hover:underline inline-block text-white font-bold text-sm">Go back</span>
     <% end %>
