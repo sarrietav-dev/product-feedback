@@ -11,7 +11,7 @@
     live_count: @live_count,
   } %>
   <div class="grow bg-violet-50 flex flex-col">
-    <%= render "suggestions/layout/index_menu", suggestions_count: @suggestions.count %>
+    <%= render "suggestions/layout/index_menu", suggestions_count: @suggestions.length %>
     <main class="bg-violet-50 px-6 py-8 lg:px-0 grow md:pb-0">
       <div class="flex flex-col gap-4 h-full">
         <% if @suggestions.blank? %>

@@ -7,7 +7,7 @@
   <div class="hidden md:flex items-center gap-4">
     <%= image_tag "suggestions/icon-suggestions.svg" %>
     <p class="text-white text-lg font-bold">
-      <span><%= Suggestion.count %></span>&nbsp;Suggestions
+      <span><%= suggestions_count %></span>&nbsp;Suggestions
     </p>
   </div>
   <%= form_with url: suggestions_path, method: :get do |form| %>
