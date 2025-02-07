@@ -1,5 +1,5 @@
 <div class="lg:container lg:mx-auto md:my-14 lg:max-w-6xl">
-  <div class="bg-dark px-6 py-7 flex justify-between md:mx-6 xl:mx-0 md:mb-8 md:rounded-lg">
+  <div class="bg-dark px-6 py-7 flex justify-between md:mx-6 xl:mx-0 md:mb-8 lg:mb-12 md:rounded-lg">
     <div class="space-y-1">
       <%= link_to 'javascript:history.back()', class: "flex items-center gap-4 group" do %>
         <%= inline_svg_tag "shared/icon-arrow-left.svg", class: "*:!stroke-white" %>
@@ -46,7 +46,7 @@
                    "live" => "Released features" } %>
       <!-- Headers Row -->
       <% statuses.each do |status, description| %>
-        <div class="text-left ">
+        <div class="text-left mb-4">
           <p class="text-dark font-bold"><%= status.capitalize %> (<%= Suggestion.where(status: status).count %>)</p>
           <p class="text-dark-muted"><%= description %></p>
         </div>
