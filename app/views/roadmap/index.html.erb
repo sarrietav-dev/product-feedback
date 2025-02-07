@@ -1,4 +1,4 @@
-<div class="bg-dark px-6 py-7 flex justify-between">
+<div class="bg-dark px-6 py-7 flex justify-between md:mx-10 md:my-14 md:mb-8 md:rounded-lg">
   <div class="space-y-1">
     <%= link_to 'javascript:history.back()', class: "flex items-center gap-4 group" do %>
       <%= inline_svg_tag "shared/icon-arrow-left.svg", class: "*:!stroke-white" %>
@@ -13,13 +13,27 @@
     <span>Add feedback</span>
   <% end %>
 </div>
-<div class="border-b border-b-dark-muted/25 grid grid-cols-3">
+<div class="border-b border-b-dark-muted/25 grid grid-cols-3 md:hidden">
   <%= link_to "Planned (#{Suggestion.where(status: "planned").count})", roadmap_index_path(status: "planned"), class: "tab #{'tab--selected' if params[:status].blank? || params[:status] == 'planned'}" %>
   <%= link_to "In-Progress (#{Suggestion.where(status: "in-progress").count})", roadmap_index_path(status: "in-progress"), class: "tab #{'tab--selected' if params[:status] == 'in-progress'}" %>
   <%= link_to "Live (#{Suggestion.where(status: "live").count})", roadmap_index_path(status: "live"), class: "tab #{'tab--selected' if params[:status] == 'live'}" %>
 </div>
+<div class="grid-cols-3 mx-10 hidden md:grid">
+  <div class="tab">
+    <p>Planned (<%= Suggestion.where(status: "planned").count %>)</p>
+    <p class="text-dark-muted font-normal text-base">Ideas prioritized for research</p>
+  </div>
+  <div class="tab">
+    <p>In-Progress (<%= Suggestion.where(status: "in-progress").count %>)</p>
+    <p class="text-dark-muted font-normal text-base">Features currently being developed</p>
+  </div>
+  <div class="tab">
+    <p>Live (<%= Suggestion.where(status: "live").count %>)</p>
+    <p class="text-dark-muted font-normal text-base">Released features</p>
+  </div>
+</div>
 <div class="p-6">
-  <div class="space-y-1 mb-6">
+  <div class="space-y-1 mb-6 md:hidden">
     <% if params[:status].blank? || params[:status] == 'planned' %>
       <p class="font-bold text-lg text-dark">Planned (<%= Suggestion.where(status: "planned").count %>)</p>
       <p class="text-dark-muted text-sm">Ideas prioritized for research</p>
@@ -31,7 +45,19 @@
       <p class="text-dark-muted text-sm">Released features</p>
     <% end %>
   </div>
-  <div class="flex flex-col gap-4">
+  <div class="flex flex-col gap-4 md:hidden">
     <%= render partial: 'roadmap/suggestion', collection: @suggestions.select { |item| item.status == (params[:status].presence || 'planned') } %>
   </div>
+  <div class="grid grid-cols-3 gap-4 items-stretch hidden md:grid">
+    <div class="flex flex-col gap-4 flex-1">
+      <%= render partial: 'roadmap/suggestion', collection: @suggestions.select { |item| item.status == 'planned' } %>
+    </div>
+    <div class="flex flex-col gap-4 flex-1">
+      <%= render partial: 'roadmap/suggestion', collection: @suggestions.select { |item| item.status == 'in-progress' } %>
+    </div>
+    <div class="flex flex-col gap-4 flex-1">
+      <%= render partial: 'roadmap/suggestion', collection: @suggestions.select { |item| item.status == 'live' } %>
+    </div>
+</div>
+
 </div>

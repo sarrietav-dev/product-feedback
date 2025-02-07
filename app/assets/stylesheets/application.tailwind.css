@@ -27,11 +27,10 @@
   }
 
   .tab {
-    @apply border-y-4 border-b-transparent py-5 opacity-25 text-sm font-bold text-dark text-center;
+    @apply border-y-4 border-b-transparent border-t-transparent py-5 opacity-25 text-sm font-bold text-dark text-center md:opacity-100 md:text-left md:text-base;
 
     &.tab--selected {
-      @apply border-b-fuchsia-500 opacity-100
+      @apply border-b-fuchsia-500 opacity-100 md:border-b-transparent;
     }
   }
-
 }
