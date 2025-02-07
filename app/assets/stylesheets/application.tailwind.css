@@ -25,4 +25,13 @@
       @apply bg-red-600;
     }
   }
+
+  .tab {
+    @apply border-y-4 border-b-transparent py-5 opacity-25 text-sm font-bold text-dark text-center;
+
+    &.tab--selected {
+      @apply border-b-fuchsia-500 opacity-100
+    }
+  }
+
 }
