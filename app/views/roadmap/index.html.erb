@@ -1,0 +1,37 @@
+<div class="bg-dark px-6 py-7 flex justify-between">
+  <div class="space-y-1">
+    <%= link_to 'javascript:history.back()', class: "flex items-center gap-4 group" do %>
+      <%= inline_svg_tag "shared/icon-arrow-left.svg", class: "*:!stroke-white" %>
+      <span class="group-hover:underline inline-block text-white font-bold text-sm">Go back</span>
+    <% end %>
+    <p class="font-bold text-white text-lg">Roadmap</p>
+  </div>
+  <%= link_to new_suggestion_path, class: "btn btn--accent flex items-center gap-2" do %>
+    <span class="text-center">
+      +
+    </span>
+    <span>Add feedback</span>
+  <% end %>
+</div>
+<div class="border-b border-b-dark-muted/25 grid grid-cols-3">
+  <%= link_to "Planned (#{Suggestion.where(status: "planned").count})", roadmap_index_path(status: "planned"), class: "tab #{'tab--selected' if params[:status].blank? || params[:status] == 'planned'}" %>
+  <%= link_to "In-Progress (#{Suggestion.where(status: "in-progress").count})", roadmap_index_path(status: "in-progress"), class: "tab #{'tab--selected' if params[:status] == 'in-progress'}" %>
+  <%= link_to "Live (#{Suggestion.where(status: "live").count})", roadmap_index_path(status: "live"), class: "tab #{'tab--selected' if params[:status] == 'live'}" %>
+</div>
+<div class="p-6">
+  <div class="space-y-1 mb-6">
+    <% if params[:status].blank? || params[:status] == 'planned' %>
+      <p class="font-bold text-lg text-dark">Planned (<%= Suggestion.where(status: "planned").count %>)</p>
+      <p class="text-dark-muted text-sm">Ideas prioritized for research</p>
+    <% elsif params[:status] == 'in-progress' %>
+      <p class="font-bold text-lg text-dark">In-Progress (<%= Suggestion.where(status: "in-progress").count %>)</p>
+      <p class="text-dark-muted text-sm">Features currently being developed</p>
+    <% elsif params[:status] == 'live' %>
+      <p class="font-bold text-lg text-dark">Live (<%= Suggestion.where(status: "live").count %>)</p>
+      <p class="text-dark-muted text-sm">Released features</p>
+    <% end %>
+  </div>
+  <div class="flex flex-col gap-4">
+    <%= render partial: 'roadmap/suggestion', collection: @suggestions.select { |item| item.status == (params[:status].presence || 'planned') } %>
+  </div>
+</div>

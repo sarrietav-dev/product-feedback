@@ -1,5 +1,5 @@
 class RoadmapController < ApplicationController
-  def show
-    @suggestions = Suggestion.where(status: params[:id])
+  def index
+    @suggestions = Suggestion.all
   end
 end
