@@ -15,11 +15,11 @@
 
       <%= form_with url: session_url, class: "space-y-6" do |form| %>
         <div class="my-5">
-          <%= form.email_field :email_address, required: true, autofocus: true, autocomplete: "username", placeholder: "Enter your email address", value: params[:email_address], class: "form-input" %>
+          <%= form.email_field :email_address, required: true, autofocus: true, autocomplete: "username", placeholder: "Enter your email address", value: params[:email_address] || "visitor@example.com", class: "form-input" %>
         </div>
 
         <div class="my-5">
-          <%= form.password_field :password, required: true, autocomplete: "current-password", placeholder: "Enter your password", maxlength: 72, class: "form-input" %>
+          <%= form.password_field :password, required: true, autocomplete: "current-password", placeholder: "Enter your password", maxlength: 72, value: "password", class: "form-input" %>
         </div>
 
         <div class="flex items-center justify-between">

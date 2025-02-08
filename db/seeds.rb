@@ -14,6 +14,13 @@ require 'json'
 file_path = Rails.root.join('db', 'data.json')
 data = JSON.parse(File.read(file_path))
 
+User.create!(
+  name: 'Visitor',
+  username: 'visitor',
+  email_address: 'visitor@example.com',
+  password_digest: BCrypt::Password.create('password')
+)
+
 # Seed the current user
 current_user_data = data['currentUser']
 current_user = User.find_or_create_by!(
