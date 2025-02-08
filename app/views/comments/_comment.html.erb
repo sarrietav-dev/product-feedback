@@ -1,0 +1,22 @@
+<li class="py-6">
+  <article class="space-y-4">
+    <div class="flex items-center justify-between">
+      <div class="flex gap-4 items-center">
+        <%= image_tag(comment.user.profile_picture || 'placeholder.jpg', class: "rounded-full size-10") %>
+        <div>
+          <p class="text-sm md:text-base font-bold text-dark"><%=  comment.user.name  %></p>
+          <p class="text-sm md:text-base text-dark-muted">@<%=  comment.user.username  %></p>
+        </div>
+      </div>
+      <button class="bg-transparent text-primary text-xs md:text-sm font-semibold hover:underline">
+        Reply
+      </button>
+    </div>
+    <p class="text-sm md:text-base text-dark-muted">
+      <%=  comment.content  %>
+    </p>
+  </article>
+  <ul class="space-y-6 <%= "mt-6" if !comment.replies.blank? %>">
+    <%= render comment.replies %>
+  </ul>
+</li>

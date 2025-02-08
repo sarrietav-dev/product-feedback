@@ -1,0 +1,19 @@
+<li class="border-l border-b-dark-muted">
+  <article class="space-y-4 ml-5">
+    <div class="flex items-center justify-between">
+      <div class="flex gap-4 items-center">
+        <%= image_tag(reply.user.profile_picture || 'placeholder.jpg', class: "rounded-full size-10") %>
+        <div>
+          <p class="text-sm md:text-base font-bold text-dark"><%=  reply.user.name  %></p>
+          <p class="text-sm md:text-base text-dark-muted">@<%=  reply.user.username  %></p>
+        </div>
+      </div>
+      <button class="bg-transparent text-primary text-xs md:text-sm font-semibold hover:underline">
+        Reply
+      </button>
+    </div>
+    <p class="text-sm md:text-base text-dark-muted">
+      <span class="text-fuchsia-600 font-bold">@<%= reply.replying_to %></span> <%=  reply.content  %>
+    </p>
+  </article>
+</li>

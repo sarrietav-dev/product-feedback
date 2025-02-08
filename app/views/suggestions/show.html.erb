@@ -15,30 +15,7 @@
         Comments
       </h2>
       <ul class="divide-y-2">
-        <% @suggestion.comments.each { |comment| %>
-        <li class="py-6">
-          <article class="space-y-4">
-            <div class="flex items-center justify-between">
-              <div class="flex gap-4 items-center">
-                <%= image_tag(comment.user.profile_picture || 'placeholder.jpg', class: "rounded-full size-10") %>
-                <div>
-                  <p class="text-sm md:text-base font-bold text-dark"><%=  comment.user.name  %></p>
-                  <p class="text-sm md:text-base text-dark-muted">@<%=  comment.user.username  %></p>
-                </div>
-              </div>
-              <button
-                    class="
-                    bg-transparent text-primary text-xs md:text-sm font-semibold hover:underline
-                  "
-                  >Reply
-              </button>
-            </div>
-            <p class="text-sm md:text-base text-dark-muted">
-              <%=  comment.content  %>
-            </p>
-          </article>
-        </li>
-        <%  } %>
+        <%= render @suggestion.comments %>
       </ul>
     </div>
     <%= form_with model: @comment, url: suggestion_comments_path(@suggestion), class: "p-6 bg-white rounded-lg space-y-4" do |form|%>
