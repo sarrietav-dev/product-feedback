@@ -16,10 +16,12 @@ data = JSON.parse(File.read(file_path))
 
 # Seed the current user
 current_user_data = data['currentUser']
-current_user = User.create!(
+current_user = User.find_or_create_by!(
   profile_picture: current_user_data['image'],
   name: current_user_data['name'],
-  username: current_user_data['username']
+  username: current_user_data['username'],
+  email_address: Faker::Internet.email,
+  password_digest: BCrypt::Password.create('password')
 )
 
 [ "ui", "ux", "enhancement", "bug", "feature" ].each do |category|
@@ -42,7 +44,9 @@ data['productRequests'].each do |request_data|
       user_id: User.find_or_create_by!(
         profile_picture: comment_data['user']['image'],
         name: comment_data['user']['name'],
-        username: comment_data['user']['username']
+        username: comment_data['user']['username'],
+        email_address: Faker::Internet.email,
+        password_digest: BCrypt::Password.create('password')
       ).id,
       suggestion_id: suggestion.id
     )
@@ -54,7 +58,9 @@ data['productRequests'].each do |request_data|
         user_id: User.find_or_create_by!(
           profile_picture: reply_data['user']['image'],
           name: reply_data['user']['name'],
-          username: reply_data['user']['username']
+          username: reply_data['user']['username'],
+          email_address: Faker::Internet.email,
+          password_digest: BCrypt::Password.create('password')
         ).id,
         comment_id: comment.id
       )

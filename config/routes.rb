@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resource :session
+  resources :passwords, param: :token
   get "roadmap/show"
   resources :suggestions
   resources :roadmap, only: [ :index ]
