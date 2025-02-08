@@ -4,8 +4,11 @@
       <%= image_tag "shared/icon-arrow-left.svg" %>
       <span class="group-hover:underline inline-block">Go back</span>
     <% end %>
-    <%= link_to "Edit feedback", edit_suggestion_path(@suggestion), class: "
-        btn btn--primary" %>
+    <%= link_to "Edit feedback",
+    edit_suggestion_path(@suggestion),
+    class:
+      "
+                btn btn--primary" %>
   </nav>
   <main class="bg-violet-50 px-6 py-8 pt-0 space-y-6">
     <%= render @suggestion %>
@@ -18,7 +21,7 @@
         <%= render @suggestion.comments %>
       </ul>
     </div>
-    <%= form_with model: @comment, url: suggestion_comments_path(@suggestion), class: "p-6 bg-white rounded-lg space-y-4" do |form|%>
+    <%= form_with model: @comment, url: suggestion_comments_path(@suggestion), class: "p-6 bg-white rounded-lg space-y-4" do |form| %>
       <%= form.label :content, "Add comment", class: "text-dark text-lg font-bold" %>
       <%= form.textarea :content, rows: 5, class: "form-input" %>
       <% if @comment.errors.any? %>
@@ -28,7 +31,7 @@
       <% end %>
       <div class="flex items-center justify-between">
         <p class="text-sm md:text-lg text-dark-muted">250 Characters left</p>
-        <%= form.submit "Post comment", :class => "btn btn--accent" %>
+        <%= form.submit "Post comment", class: "btn btn--accent" %>
       </div>
     <% end %>
   </main>

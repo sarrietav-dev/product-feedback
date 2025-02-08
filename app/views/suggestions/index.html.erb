@@ -17,13 +17,14 @@
         <% if @suggestions.blank? %>
           <article
             class="
-              p-6 bg-white rounded-lg space-y-4 flex flex-col items-center
-              gap-6 md:gap-4 grow justify-center
+              p-6 bg-white rounded-lg space-y-4 flex flex-col items-center gap-6 md:gap-4 grow
+              justify-center
             "
           >
-            <%= image_tag "suggestions/illustration-empty.svg"%>
+            <%= image_tag "suggestions/illustration-empty.svg" %>
             <div class="text-center text-dark text-lg font-bold">There is no feedback yet.</div>
-            <div class="w-72 text-center text-dark-muted text-sm font-normal">Got a suggestion? Found a bug that needs to be squashed? We love hearing about new ideas to improve our app.</div>
+            <div class="w-72 text-center text-dark-muted text-sm font-normal">Got a suggestion? Found a bug that needs to be squashed? We love
+              hearing about new ideas to improve our app.</div>
             <%= link_to new_suggestion_path, class: "btn btn--accent" do %>
               <span class="text-center">+</span>
               <span>Add feedback</span>

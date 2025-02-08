@@ -26,7 +26,6 @@
         <p class="text-dark-muted text-sm">Unknown</p>
       <% end %>
     </div>
-
     <!-- Title + Description Adjust for Equal Heights -->
     <div class="space-y-3 flex-grow">
       <p class="font-bold text-dark text-sm md:text-lg">
@@ -35,18 +34,31 @@
       <p class="text-dark-muted text-sm md:text-base">
         <%= suggestion.description %>
       </p>
-      <button class="bg-violet-50 rounded-lg py-1.5 px-4 flex items-center gap-2 text-indigo-600 font-semibold text-xs capitalize">
+      <button
+        class="
+          bg-violet-50 rounded-lg py-1.5 px-4 flex items-center gap-2 text-indigo-600
+          font-semibold text-xs capitalize
+        "
+      >
         <%= suggestion.category.name %>
       </button>
     </div>
-
     <!-- Buttons Stay at the Bottom -->
     <div class="flex justify-between md:w-full mt-auto">
-      <button class="bg-violet-50 rounded-lg py-1 px-4 flex items-center gap-2 text-dark font-bold">
+      <button
+        class="
+          bg-violet-50 rounded-lg py-1 px-4 flex items-center gap-2 text-dark font-bold
+        "
+      >
         <%= image_tag "shared/icon-arrow-up.svg" %>
         <%= suggestion.upvotes_count %>
       </button>
-      <button class="rounded-lg py-1 px-4 flex items-center gap-2 text-dark font-bold <%= 'opacity-50' if suggestion.comments_count.zero? %>">
+      <button
+        class="
+          rounded-lg py-1 px-4 flex items-center gap-2 text-dark font-bold
+          <%= 'opacity-50' if suggestion.comments_count.zero? %>
+        "
+      >
         <%= image_tag "shared/icon-comments.svg" %>
         <%= suggestion.comments_count %>
       </button>
