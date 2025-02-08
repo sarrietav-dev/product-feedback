@@ -5,9 +5,11 @@ one:
   status: MyString
   description: MyString
   user: one
+  category: one
 
 two:
   title: MyString
   status: MyString
   description: MyString
   user: two
+  category: two

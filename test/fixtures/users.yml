@@ -3,7 +3,6 @@
 one:
   name: MyString
   username: MyString
-  email: MyString
   profile_picture: MyString
   email_address: one@example.com
   password_digest: <%= password_digest %>
@@ -11,7 +10,6 @@ one:
 two:
   name: MyString
   username: MyString
-  email: MyString
   profile_picture: MyString
   email_address: two@example.com
   password_digest: <%= password_digest %>
