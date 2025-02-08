@@ -6,61 +6,53 @@
     <% end %>
     <%= link_to "Edit feedback", edit_suggestion_path(@suggestion), class: "
         btn btn--primary" %>
-    </nav>
-    <main class="bg-violet-50 px-6 py-8 pt-0 space-y-6">
-      <%= render @suggestion %>
-      <div class="p-6 bg-white rounded-lg space-y-4">
-        <h2 class="text-dark text-lg font-bold">
-          <%= @suggestion.comments.count %>
-          Comments
-        </h2>
-        <ul class="divide-y-2">
-          <% @suggestion.comments.each { |comment| %>
-          <li class="py-6">
-            <article class="space-y-4">
-              <div class="flex items-center justify-between">
-                <div class="flex gap-4 items-center">
-                  <%=  image_tag comment.user.profile_picture, class: "rounded-full size-10"  %>
-                  <div>
-                    <p class="text-sm md:text-base font-bold text-dark"><%=  comment.user.name  %></p>
-                    <p class="text-sm md:text-base text-dark-muted">@<%=  comment.user.username  %></p>
-                  </div>
+  </nav>
+  <main class="bg-violet-50 px-6 py-8 pt-0 space-y-6">
+    <%= render @suggestion %>
+    <div class="p-6 bg-white rounded-lg space-y-4">
+      <h2 class="text-dark text-lg font-bold">
+        <%= @suggestion.comments.count %>
+        Comments
+      </h2>
+      <ul class="divide-y-2">
+        <% @suggestion.comments.each { |comment| %>
+        <li class="py-6">
+          <article class="space-y-4">
+            <div class="flex items-center justify-between">
+              <div class="flex gap-4 items-center">
+                <%= image_tag(comment.user.profile_picture || 'placeholder.jpg', class: "rounded-full size-10") %>
+                <div>
+                  <p class="text-sm md:text-base font-bold text-dark"><%=  comment.user.name  %></p>
+                  <p class="text-sm md:text-base text-dark-muted">@<%=  comment.user.username  %></p>
                 </div>
-                <button
+              </div>
+              <button
                     class="
                     bg-transparent text-primary text-xs md:text-sm font-semibold hover:underline
                   "
                   >Reply
-                </button>
-              </div>
-              <p class="text-sm md:text-base text-dark-muted">
-                <%=  comment.content  %>
-              </p>
-            </article>
-          </li>
-          <%  } %>
-        </ul>
-      </div>
-      <form class="p-6 bg-white rounded-lg space-y-4">
-        <label for="content" class="text-dark text-lg font-bold">Add Comment</label>
-        <textarea
-        class="
-          bg-violet-50 rounded w-full border-none text-sm md:text-lg
-          focus-visible:outline-none focus:ring-primary focus:ring-2 text-dark-muted
-        "
-        rows="5"
-        name="content"
-        id="content"
-      ></textarea>
-        <div class="flex items-center justify-between">
-          <p class="text-sm md:text-lg text-dark-muted">250 Characters left</p>
-          <button
-          class="
-            bg-secondary text-white font-bold flex rounded-xl px-4 py-2 items-center text-sm
-            md:text-base
-          "
-        >Post Comment</button>
+              </button>
+            </div>
+            <p class="text-sm md:text-base text-dark-muted">
+              <%=  comment.content  %>
+            </p>
+          </article>
+        </li>
+        <%  } %>
+      </ul>
+    </div>
+    <%= form_with model: @comment, url: suggestion_comments_path(@suggestion), class: "p-6 bg-white rounded-lg space-y-4" do |form|%>
+      <%= form.label :content, "Add comment", class: "text-dark text-lg font-bold" %>
+      <%= form.textarea :content, rows: 5, class: "form-input" %>
+      <% if @comment.errors.any? %>
+        <div class="text-red-500 text-sm">
+          <%= @comment.errors.full_messages_for(:content).join(", ") %>
         </div>
-      </form>
-    </main>
-  </div>
+      <% end %>
+      <div class="flex items-center justify-between">
+        <p class="text-sm md:text-lg text-dark-muted">250 Characters left</p>
+        <%= form.submit "Post comment", :class => "btn btn--accent" %>
+      </div>
+    <% end %>
+  </main>
+</div>

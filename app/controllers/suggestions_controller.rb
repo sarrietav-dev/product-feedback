@@ -32,6 +32,7 @@ class SuggestionsController < ApplicationController
 
 
   def show
+    @comment = Comment.new
   end
 
   def new
