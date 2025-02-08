@@ -40,6 +40,7 @@ class SuggestionsController < ApplicationController
 
   def create
     @suggestion = Suggestion.new(suggestion_params)
+    @suggestion.user_id = Current.user.id
     if @suggestion.save
       redirect_to @suggestion
     else
