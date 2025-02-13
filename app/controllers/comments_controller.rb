@@ -6,14 +6,17 @@ class CommentsController < ApplicationController
     @comment.user_id = Current.user.id
 
     if @comment.save
-      redirect_to suggestion_path(params[:suggestion_id])
+      respond_to do |format|
+        format.turbo_stream
+      end
     else
       render "suggestions/show", status: :unprocessable_entity
     end
   end
 
   private
-    def comment_params
-      params.expect(comment: [ :content ])
-    end
+
+  def comment_params
+    params.expect(comment: [:content])
+  end
 end

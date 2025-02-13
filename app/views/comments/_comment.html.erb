@@ -11,19 +11,23 @@
           <p class="text-sm md:text-base text-dark-muted">@<%= comment.user.username %></p>
         </div>
       </div>
-      <button
-        class="
-          bg-transparent text-primary text-xs md:text-sm font-semibold hover:underline
-        "
-      >
-        Reply
-      </button>
+      <%= link_to "Reply",
+      new_comment_reply_path(comment),
+      class:
+        "bg-transparent text-primary text-xs md:text-sm font-semibold hover:underline",
+      data: {
+        turbo_frame: dom_id(Reply.new, dom_id(comment)),
+      } %>
     </div>
     <p class="text-sm md:text-base text-dark-muted">
       <%= comment.content %>
     </p>
+
+    <%= turbo_frame_tag dom_id(Reply.new, dom_id(comment)) %>
   </article>
-  <ul class="space-y-6 <%= "mt-6" if !comment.replies.blank? %>">
-    <%= render comment.replies %>
+  <ul class="border-l border-b-dark-muted <%= "mt-6" if !comment.replies.blank? %>">
+    <%= turbo_frame_tag comment, class: "space-y-6 " do %>
+      <%= render comment.replies %>
+    <% end %>
   </ul>
 </li>

@@ -1,0 +1,2 @@
+<%= turbo_stream.append @comment, @reply %>
+<%= turbo_stream.update dom_id(Reply.new, dom_id(@comment)), "" %>

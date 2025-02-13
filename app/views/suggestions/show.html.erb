@@ -18,7 +18,7 @@
         Comments
       </h2>
       <ul class="divide-y-2">
-        <%= render @suggestion.comments %>
+        <%= render partial: 'comments/comment', collection: @suggestion.comments, as: :comment, locals: { suggestion: @suggestion } %>
       </ul>
     </div>
     <%= form_with model: @comment, url: suggestion_comments_path(@suggestion), class: "p-6 bg-white rounded-lg space-y-4" do |form| %>
