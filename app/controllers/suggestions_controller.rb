@@ -1,27 +1,27 @@
 class SuggestionsController < ApplicationController
-  before_action :set_suggestion, only: %i[ edit update show destroy ]
+  before_action :set_suggestion, only: %i[edit update show destroy]
 
   def index
     sort_options = {
-      "most-upvotes"   => "COUNT(upvotes.id) DESC",
-      "least-upvotes"  => "COUNT(upvotes.id) ASC",
-      "most-comments"  => "COUNT(comments.id) DESC",
+      "most-upvotes" => "COUNT(upvotes.id) DESC",
+      "least-upvotes" => "COUNT(upvotes.id) ASC",
+      "most-comments" => "COUNT(comments.id) DESC",
       "least-comments" => "COUNT(comments.id) ASC"
     }
 
     sort_order = sort_options.fetch(params[:sort], "COUNT(upvotes.id) DESC")
 
-  @suggestions = if params[:filter].present? && params[:filter] != "all"
-                   category = Category.find_by(name: params[:filter])
-                   Suggestion.where(category_id: category&.id)
-  else
-                   Suggestion.all
-  end
+    @suggestions = if params[:filter].present? && params[:filter] != "all"
+      category = Category.find_by(name: params[:filter])
+      Suggestion.where(category_id: category&.id)
+    else
+      Suggestion.all
+    end
 
-  @suggestions = @suggestions
-    .left_joins(:upvotes, :comments)
-    .group(:id)
-    .order(sort_order)
+    @suggestions = @suggestions
+      .left_joins(:upvotes, :comments)
+      .group(:id)
+      .order(sort_order)
 
     status_counts = Suggestion.group(:status).count.transform_values(&:to_i)
 
@@ -29,7 +29,6 @@ class SuggestionsController < ApplicationController
     @in_progress_count = status_counts.fetch("in-progress", 0)
     @live_count = status_counts.fetch("live", 0)
   end
-
 
   def show
     @comment = Comment.new
@@ -42,6 +41,7 @@ class SuggestionsController < ApplicationController
   def create
     @suggestion = Suggestion.new(suggestion_params)
     @suggestion.user_id = Current.user.id
+    @suggestion.status = "planned"
     if @suggestion.save
       redirect_to @suggestion
     else
@@ -66,11 +66,12 @@ class SuggestionsController < ApplicationController
   end
 
   private
-    def set_suggestion
-      @suggestion = Suggestion.find(params[:id])
-    end
 
-    def suggestion_params
-      params.expect(suggestion: [ :title, :description, :category_id ])
-    end
+  def set_suggestion
+    @suggestion = Suggestion.find(params[:id])
+  end
+
+  def suggestion_params
+    params.expect(suggestion: [:title, :description, :category_id])
+  end
 end

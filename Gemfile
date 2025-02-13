@@ -57,6 +57,7 @@ group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
   gem "faker"
+  gem "erb-formatter", "~> 0.7.3"
 end
 
 group :test do
@@ -72,3 +73,4 @@ gem "litestream", "~> 0.12.0"
 gem "aws-sdk-s3", "~> 1.180", require: false
 
 gem "inline_svg"
+
