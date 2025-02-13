@@ -1,45 +1,44 @@
-<a href="<%= suggestion_path suggestion  %>">
-  <article
+<article
     class="
       p-6 bg-white rounded-lg space-y-4 flex flex-col md:flex-row md:items-center
       md:gap-10
     "
   >
-    <button
-      class="
-        bg-violet-50 rounded-lg py-1 md:py-2 px-4 md:px-3 md:flex-col items-center gap-2
-        text-dark font-bold hidden md:flex
-      "
-    >
-      <%= image_tag "shared/icon-arrow-up.svg" %>
-      <%= suggestion.upvotes_count %>
-    </button>
-    <div class="space-y-3 grow">
-      <p class="font-bold text-dark text-sm md:text-lg">
-        <%= suggestion.title %>
-      </p>
-      <p class="text-dark-muted text-sm md:text-base">
-        <%= suggestion.description %>
-      </p>
-      <button
-        class="
-          bg-violet-50 rounded-lg py-1.5 px-4 flex items-center gap-2 text-indigo-600
-          font-semibold text-xs capitalize
-        "
-      >
-        <%= suggestion.category.name %>
-      </button>
-    </div>
+    <%= turbo_frame_tag dom_id(suggestion) do %>
+      <%= button_to suggestion_upvotes_path(suggestion), class: "
+          bg-violet-50 rounded-lg py-1 md:py-2 px-4 md:px-3 md:flex-col items-center gap-2
+          text-dark font-bold hidden md:flex
+      " do %>
+        <%= image_tag "shared/icon-arrow-up.svg" %>
+        <%= suggestion.upvotes.count %>
+      <% end %>
+    <% end %>
+    <a href="<%= suggestion_path suggestion  %>" class="grow">
+      <div class="space-y-3">
+        <p class="font-bold text-dark text-sm md:text-lg">
+          <%= suggestion.title %>
+        </p>
+        <p class="text-dark-muted text-sm md:text-base">
+          <%= suggestion.description %>
+        </p>
+        <button
+          class="
+            bg-violet-50 rounded-lg py-1.5 px-4 flex items-center gap-2 text-indigo-600
+            font-semibold text-xs capitalize
+          "
+        >
+          <%= suggestion.category.name %>
+        </button>
+      </div>
+    </a>
     <div class="flex justify-between">
-      <button
-        class="
+      <%= button_to suggestion_upvotes_path(suggestion), class: "
           bg-violet-50 rounded-lg py-1 px-4 flex items-center gap-2 text-dark font-bold
           md:hidden
-        "
-      >
+      " do %>
         <%= image_tag "shared/icon-arrow-up.svg" %>
         <%= suggestion.upvotes_count %>
-      </button>
+      <% end %>
       <button
         class="
           rounded-lg py-1 px-4 flex items-center gap-2 text-dark font-bold
@@ -51,4 +50,3 @@
       </button>
     </div>
   </article>
-</a>

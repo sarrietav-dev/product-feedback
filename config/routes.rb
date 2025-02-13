@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 
   resources :suggestions do
     resources :comments, only: [:new, :create]
+    resources :upvotes, only: [:create, :destroy]
   end
 
   resources :comments, only: [] do
