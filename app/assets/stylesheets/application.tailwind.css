@@ -33,4 +33,16 @@
       @apply border-b-fuchsia-500 opacity-100 md:border-b-transparent;
     }
   }
+
+  .upvote {
+    &.upvote--mobile {
+      @apply bg-violet-50 rounded-lg py-1 px-4 flex items-center gap-2 text-dark font-bold
+          md:hidden;
+    }
+
+    &.upvote--desktop {
+      @apply bg-violet-50 rounded-lg py-1 md:py-2 px-4 md:px-3 md:flex-col items-center gap-2
+          text-dark font-bold hidden md:flex;
+    }
+  }
 }

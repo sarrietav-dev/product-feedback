@@ -1,0 +1,11 @@
+<% if suggestion.upvotes.exists?(user: Current.user) %>
+  <%= button_to suggestion_upvote_path(suggestion, suggestion.upvotes.find_by(user: Current.user)), method: :delete, class: device == :mobile ? "upvote upvote--mobile" : "upvote upvote--desktop" do %>
+    <%= image_tag "shared/icon-arrow-up.svg" %>
+    <%= suggestion.upvotes.count %>
+  <% end %>
+<% else %>
+  <%= button_to suggestion_upvotes_path(suggestion), class: device == :mobile ? "upvote upvote--mobile" : "upvote upvote--desktop" do %>
+    <%= image_tag "shared/icon-arrow-up.svg" %>
+    <%= suggestion.upvotes.count %>
+  <% end %>
+<% end %>

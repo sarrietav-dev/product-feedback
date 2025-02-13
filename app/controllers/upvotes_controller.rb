@@ -16,7 +16,7 @@ class UpvotesController < ApplicationController
 
   def destroy
     @suggestion = Suggestion.find(params[:suggestion_id])
-    @upvote = Upvote.find(params[:id])
+    @upvote = @suggestion.upvotes.find_by(user: Current.user)
 
     if @upvote
       @upvote.destroy!
