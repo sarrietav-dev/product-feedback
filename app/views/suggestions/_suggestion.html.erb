@@ -4,8 +4,8 @@
     md:gap-10
   "
 >
-  <%= turbo_frame_tag dom_id(suggestion) do %>
-    <%= button_to suggestion_upvotes_path(suggestion, "desktop"), class: "
+  <%= turbo_frame_tag dom_id(suggestion, "desktop") do %>
+    <%= button_to suggestion_upvotes_path(suggestion), class: "
           bg-violet-50 rounded-lg py-1 md:py-2 px-4 md:px-3 md:flex-col items-center gap-2
           text-dark font-bold hidden md:flex
       " do %>
