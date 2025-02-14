@@ -15,7 +15,6 @@ export default class extends Controller {
   }
 
   decrement(event) {
-    console.log(this.counterTarget);
     this.counterValue = 250 - event.target.value.length;
   }
 

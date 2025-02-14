@@ -24,14 +24,14 @@
       </ul>
     </div>
     <%= form_with model: @comment, url: suggestion_comments_path(@suggestion),
-      data: {controller: "char-counter"}, class: "p-6 bg-white rounded-lg space-y-4" do |form| %>
+      data: {controller: "comment-form"}, class: "p-6 bg-white rounded-lg space-y-4" do |form| %>
       <%= form.label :content, "Add comment", class: "text-dark text-lg font-bold" %>
       <%= form.textarea :content,
                     rows: 5,
                     maxlength: 250,
                     class: "form-input",
                     data: {
-                      action: "char-counter#decrement",
+                      action: "comment-form#decrement",
                     } %>
       <% if @comment.errors.any? %>
         <div class="text-red-500 text-sm">
@@ -40,7 +40,7 @@
       <% end %>
       <div class="flex items-center justify-between">
         <p class="text-sm md:text-lg text-dark-muted">
-          <span data-char-counter-target="counter">250</span>
+          <span data-comment-form-target="counter">250</span>
           Characters left
         </p>
         <%= form.submit "Post comment", class: "btn btn--accent" %>
