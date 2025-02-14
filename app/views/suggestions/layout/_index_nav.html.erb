@@ -16,61 +16,69 @@
     </p>
     <p class="font-medium text-sm text-white">Feedback board</p>
   </div>
-  <%= form_with url: suggestions_path, method: :get, local: true, class: "hidden md:flex bg-white p-6 max-w-56 h-44 rounded-lg flex-wrap gap-2 items-start" do %>
-    <input type="hidden" name="sort" value="<%= params[:sort] %>">
-    <button
-      class="
-        bg-violet-50 rounded-lg py-1.5 px-4 flex items-center gap-2 text-indigo-600
-        hover:!bg-indigo-200 transition font-semibold text-xs
-        <%= "!bg-primary text-white hover:!bg-primary-dark" if !params[:filter].present? || params[:filter] == 'all' %>
-      "
-      type="submit"
-      name="filter"
-      value="all"
-    >
-      All
-    </button>
-    <% categories.each do |category| %>
+  <div class="fixed md:hidden top-[76px] left-0 w-screen h-screen bg-black/20"></div>
+  <div
+    class="
+      fixed right-0 top-[76px] h-full w-72 md:w-auto p-6 md:p-0 md:relative bg-violet-50
+      z-10 md:bg-transparent flex flex-col md:flex-row lg:flex-col gap-6
+    "
+  >
+    <%= form_with url: suggestions_path, method: :get, local: true, class: " flex w-full bg-white p-6 md:max-w-56 md:h-44 rounded-lg flex-wrap gap-2 items-start" do %>
+      <input type="hidden" name="sort" value="<%= params[:sort] %>">
       <button
         class="
           bg-violet-50 rounded-lg py-1.5 px-4 flex items-center gap-2 text-indigo-600
-          hover:bg-indigo-200 transition font-semibold text-xs
-          <%= category.name.length == 2 ? 'uppercase' : 'capitalize' %> <%= "!bg-primary text-white hover:!bg-primary-dark" if params[:filter] == category.name %>
+          hover:!bg-indigo-200 transition font-semibold text-xs
+          <%= "!bg-primary text-white hover:!bg-primary-dark" if !params[:filter].present? || params[:filter] == 'all' %>
         "
         type="submit"
         name="filter"
-        value="<%= category.name %>"
+        value="all"
       >
-        <%= category.name %>
+        All
       </button>
+      <% categories.each do |category| %>
+        <button
+          class="
+            bg-violet-50 rounded-lg py-1.5 px-4 flex items-center gap-2 text-indigo-600
+            hover:bg-indigo-200 transition font-semibold text-xs
+            <%= category.name.length == 2 ? 'uppercase' : 'capitalize' %> <%= "!bg-primary text-white hover:!bg-primary-dark" if params[:filter] == category.name %>
+          "
+          type="submit"
+          name="filter"
+          value="<%= category.name %>"
+        >
+          <%= category.name %>
+        </button>
+      <% end %>
     <% end %>
-  <% end %>
-  <div
-    class="
-      hidden md:grid grid-cols-3 flex-col bg-white px-6 py-5 md:max-w-56 h-44
-      rounded-lg flex-wrap gap-2 items-baseline justify-center lg:w-full
-    "
-  >
-    <h2 class="text-dark text-lg font-bold col-span-2 mb-2">Roadmap</h2>
-    <a
-      class="text-sm text-primary font-semibold underline text-right"
-      href="/roadmap"
-    >View</a>
-    <div class="flex col-span-2 items-center gap-4">
-      <div class="w-2 h-2 bg-orange-300 rounded-full"></div>
-      <span>Planned</span>
+    <div
+      class="
+        grid grid-cols-3 flex-col bg-white px-6 py-5 md:max-w-56 md:h-44 rounded-lg
+        flex-wrap gap-2 items-baseline justify-center lg:w-full
+      "
+    >
+      <h2 class="text-dark text-lg font-bold col-span-2 mb-2">Roadmap</h2>
+      <a
+        class="text-sm text-primary font-semibold underline text-right"
+        href="/roadmap"
+      >View</a>
+      <div class="flex col-span-2 items-center gap-4">
+        <div class="w-2 h-2 bg-orange-300 rounded-full"></div>
+        <span>Planned</span>
+      </div>
+      <span class="text-right"><%= planned_count %></span>
+      <div class="flex items-center col-span-2 gap-4">
+        <div class="w-2 h-2 bg-fuchsia-500 rounded-full"></div>
+        <span class="">In-Progress</span>
+      </div>
+      <span class="text-right"><%= in_progress_count %></span>
+      <div class="flex items-center col-span-2 gap-4">
+        <div class="w-2 h-2 bg-blue-400 rounded-full"></div>
+        <span>Live</span>
+      </div>
+      <span class="text-right"><%= live_count %></span>
     </div>
-    <span class="text-right"><%= planned_count %></span>
-    <div class="flex items-center col-span-2 gap-4">
-      <div class="w-2 h-2 bg-fuchsia-500 rounded-full"></div>
-      <span class="">In-Progress</span>
-    </div>
-    <span class="text-right"><%= in_progress_count %></span>
-    <div class="flex items-center col-span-2 gap-4">
-      <div class="w-2 h-2 bg-blue-400 rounded-full"></div>
-      <span>Live</span>
-    </div>
-    <span class="text-right"><%= live_count %></span>
   </div>
   <button class="md:hidden">
     <%= image_tag "shared/mobile/icon-hamburger.svg" %>
