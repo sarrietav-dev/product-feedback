@@ -27,7 +27,9 @@
     </div>
   </a>
   <div class="flex justify-between">
-    <%= render "upvotes/upvote", suggestion: suggestion, device: :mobile %>
+    <%= turbo_frame_tag dom_id(suggestion, "mobile") do %>
+      <%= render "upvotes/upvote", suggestion: suggestion, device: :mobile %>
+    <% end %>
     <button
       class="
         rounded-lg py-1 px-4 flex items-center gap-2 text-dark font-bold
