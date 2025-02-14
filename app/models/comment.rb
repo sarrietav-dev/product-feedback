@@ -4,5 +4,5 @@ class Comment < ApplicationRecord
 
   has_many :replies, dependent: :destroy
 
-  validates :content, presence: true
+  validates :content, presence: true, length: {maximum: 250}
 end
