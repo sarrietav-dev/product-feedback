@@ -9,12 +9,12 @@
     planned_count: @planned_count,
     in_progress_count: @in_progress_count,
     live_count: @live_count,
-    categories: Category.all
+    categories: Category.all,
   } %>
   <div class="grow bg-violet-50 flex flex-col">
     <%= render "suggestions/layout/index_menu", suggestions_count: @suggestions.length %>
     <main class="bg-violet-50 px-6 py-8 lg:px-0 grow md:pb-0">
-      <div class="flex flex-col gap-4 h-full">
+      <div class="">
         <% if @suggestions.blank? %>
           <article
             class="
@@ -32,7 +32,9 @@
             <% end %>
           </article>
         <% else %>
-          <%= render @suggestions %>
+          <%= turbo_frame_tag "suggestions", class: "flex flex-col gap-4 h-full" do %>
+            <%= render @suggestions %>
+          <% end %>
         <% end %>
       </div>
     </main>

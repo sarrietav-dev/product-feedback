@@ -28,6 +28,11 @@ class SuggestionsController < ApplicationController
     @planned_count = status_counts.fetch("planned", 0)
     @in_progress_count = status_counts.fetch("in-progress", 0)
     @live_count = status_counts.fetch("live", 0)
+
+    respond_to do |format|
+      format.html
+      format.turbo_stream
+    end
   end
 
   def show

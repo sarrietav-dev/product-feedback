@@ -7,7 +7,7 @@
   <%= turbo_frame_tag dom_id(suggestion, "desktop") do %>
     <%= render "upvotes/upvote", suggestion: suggestion, device: :desktop %>
   <% end %>
-  <a href="<%= suggestion_path suggestion  %>" class="grow">
+  <a href="<%= suggestion_path suggestion%>" data-turbo-frame="_top" class="grow">
     <div class="space-y-3">
       <p class="font-bold text-dark text-sm md:text-lg">
         <%= suggestion.title %>
