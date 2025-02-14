@@ -9,6 +9,7 @@
     planned_count: @planned_count,
     in_progress_count: @in_progress_count,
     live_count: @live_count,
+    categories: Category.all
   } %>
   <div class="grow bg-violet-50 flex flex-col">
     <%= render "suggestions/layout/index_menu", suggestions_count: @suggestions.length %>
