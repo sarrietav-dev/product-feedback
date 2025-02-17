@@ -36,6 +36,7 @@ class SuggestionsController < ApplicationController
   end
 
   def show
+    @suggestion = Suggestion.includes(comments: [:user, :replies]).find(params[:id])
     @comment = Comment.new
   end
 
