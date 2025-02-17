@@ -51,16 +51,16 @@
         "
       >
         <%= image_tag "shared/icon-arrow-up.svg" %>
-        <%= suggestion.upvotes_count %>
+        <%= suggestion.upvotes.count %>
       </button>
       <button
         class="
           rounded-lg py-1 px-4 flex items-center gap-2 text-dark font-bold
-          <%= 'opacity-50' if suggestion.comments_count.zero? %>
+          <%= 'opacity-50' if suggestion.comments.count.zero? %>
         "
       >
         <%= image_tag "shared/icon-comments.svg" %>
-        <%= suggestion.comments_count %>
+        <%= suggestion.comments.count %>
       </button>
     </div>
   </article>

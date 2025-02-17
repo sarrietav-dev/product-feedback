@@ -17,46 +17,40 @@
       <span>Add feedback</span>
     <% end %>
   </div>
+
+  <% statuses = {
+    "planned" => "Ideas prioritized for research",
+    "in-progress" => "Features currently being developed",
+    "live" => "Released features",
+  } %>
+
+  <% current_status = @current_status %>
   <!-- Mobile Tabs -->
   <div class="border-b border-b-dark-muted/25 grid grid-cols-3 md:hidden">
-    <% ["planned", "in-progress", "live"].each do |status| %>
+    <% statuses.each_key do |status| %>
       <%= link_to "#{status.capitalize} (#{@status_counts[status].to_i})",
       roadmap_index_path(status: status),
-      class:
-        "tab #{"tab--selected" if params[:status].blank? && status == "planned" || params[:status] == status}" %>
+      class: "tab #{"tab--selected" if current_status == status}" %>
     <% end %>
   </div>
+
   <div class="p-6 xl:p-0">
     <!-- Mobile View -->
     <div class="space-y-1 mb-6 md:hidden">
-      <% current_status = params[:status].presence || "planned" %>
       <p class="font-bold text-lg text-dark">
         <%= current_status.capitalize %>
         (<%= @status_counts[current_status].to_i %>)
       </p>
-      <p class="text-dark-muted text-sm">
-        <%= case current_status
-        when "planned"
-          "Ideas prioritized for research"
-        when "in-progress"
-          "Features currently being developed"
-        when "live"
-          "Released features"
-        end %>
-      </p>
+      <p class="text-dark-muted text-sm"><%= statuses[current_status] %></p>
     </div>
     <!-- Mobile Suggestions List -->
     <div class="flex flex-col gap-4 md:hidden">
-      <%= render partial: "roadmap/suggestion",
-      collection: @suggestions.select { |s| s.status == current_status } %>
+      <% cache ["roadmap", current_status] do %>
+        <%= render partial: "roadmap/suggestion", collection: @filtered_suggestions %>
+      <% end %>
     </div>
-    <!-- Desktop View -->
+    <!-- Desktop View (Shows All Statuses) -->
     <div class="grid-cols-3 gap-4 hidden md:grid auto-rows-min">
-      <% statuses = {
-        "planned" => "Ideas prioritized for research",
-        "in-progress" => "Features currently being developed",
-        "live" => "Released features",
-      } %>
       <!-- Headers Row -->
       <% statuses.each do |status, description| %>
         <div class="text-left mb-4">
@@ -65,21 +59,19 @@
           <p class="text-dark-muted"><%= description %></p>
         </div>
       <% end %>
-      <!-- Calculate Max Rows for Grid Alignment -->
-      <% max_rows =
-        statuses
-          .keys
-          .map { |status| @suggestions.count { |s| s.status == status } }
-          .max %>
       <!-- Grid Layout for Suggestions -->
+      <% max_rows =
+        statuses.keys.map { |status| @suggestions_by_status[status]&.size.to_i }.max %>
       <% (0...max_rows).each do |i| %>
         <% statuses.keys.each do |status| %>
           <div class="h-full">
-            <% suggestion = @suggestions.select { |s| s.status == status }[i] %>
-            <% if suggestion %>
-              <%= render partial: "roadmap/suggestion", locals: { suggestion: suggestion } %>
-            <% else %>
-              <div class="invisible h-full"></div>
+            <% cache ["roadmap", status, i] do %>
+              <% suggestion = @suggestions_by_status[status]&.at(i) %>
+              <% if suggestion %>
+                <%= render partial: "roadmap/suggestion", locals: { suggestion: suggestion } %>
+              <% else %>
+                <div class="invisible h-full"></div>
+              <% end %>
             <% end %>
           </div>
         <% end %>
