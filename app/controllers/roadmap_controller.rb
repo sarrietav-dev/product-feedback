@@ -1,5 +1,6 @@
 class RoadmapController < ApplicationController
   def index
-    @suggestions = Suggestion.all
+    @status_counts = Suggestion.group(:status).count
+    @suggestions = Suggestion.includes(:category).all
   end
 end

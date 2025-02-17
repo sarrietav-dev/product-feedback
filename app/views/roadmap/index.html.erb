@@ -20,7 +20,7 @@
   <!-- Mobile Tabs -->
   <div class="border-b border-b-dark-muted/25 grid grid-cols-3 md:hidden">
     <% ["planned", "in-progress", "live"].each do |status| %>
-      <%= link_to "#{status.capitalize} (#{Suggestion.where(status: status).count})",
+      <%= link_to "#{status.capitalize} (#{@status_counts[status].to_i})",
       roadmap_index_path(status: status),
       class:
         "tab #{"tab--selected" if params[:status].blank? && status == "planned" || params[:status] == status}" %>
@@ -32,7 +32,7 @@
       <% current_status = params[:status].presence || "planned" %>
       <p class="font-bold text-lg text-dark">
         <%= current_status.capitalize %>
-        (<%= Suggestion.where(status: current_status).count %>)
+        (<%= @status_counts[current_status].to_i %>)
       </p>
       <p class="text-dark-muted text-sm">
         <%= case current_status
@@ -61,7 +61,7 @@
       <% statuses.each do |status, description| %>
         <div class="text-left mb-4">
           <p class="text-dark font-bold"><%= status.capitalize %>
-            (<%= Suggestion.where(status: status).count %>)</p>
+            (<%= @status_counts[status].to_i %>)</p>
           <p class="text-dark-muted"><%= description %></p>
         </div>
       <% end %>
