@@ -1,7 +1,15 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+ui:
+  name: ui
 
-one:
-  name: MyString
+ux:
+  name: ux
 
-two:
-  name: MyString
+enhancement:
+  name: enhancement
+
+bug:
+  name: bug
+
+feature:
+  name: feature

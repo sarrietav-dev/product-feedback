@@ -1,15 +1,50 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  title: MyString
-  status: MyString
-  description: MyString
-  user: one
-  category: one
+ui:
+  title: Improve UI Design
+  status: planned
+  description: The current UI design needs to be more user-friendly and modern.
+  user: john
+  category: ui
 
-two:
-  title: MyString
-  status: MyString
-  description: MyString
-  user: two
-  category: two
+dark_mode:
+  title: Add Dark Mode
+  status: in-progress
+  description: Implement a dark mode option for the application to reduce eye strain.
+  user: jane
+  category: feature
+
+performance:
+  title: Enhance Performance
+  status: planned
+  description: Optimize the application to improve loading times and overall performance.
+  user: john
+  category: enhancement
+
+documentation:
+  title: Update Documentation
+  status: live
+  description: Revise and update the documentation to include recent changes and new features.
+  user: jane
+  category: enhancement
+
+security:
+  title: Improve Security
+  status: in-progress
+  description: Strengthen the security measures to protect user data and prevent breaches.
+  user: john
+  category: feature
+
+navigation:
+  title: Improve Navigation
+  status: planned
+  description: Redesign the navigation to make it more intuitive and easier to use.
+  user: john
+  category: ux
+
+login_issue:
+  title: Fix Login Issue
+  status: in-progress
+  description: Resolve the issue where users are unable to log in under certain conditions.
+  user: jane
+  category: bug
