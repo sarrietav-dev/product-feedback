@@ -41,6 +41,7 @@ class SuggestionsController < ApplicationController
 
   def new
     @suggestion = Suggestion.new
+    @category_options = Category.all.map { |c| [c.capitalized_name, c.id] }
   end
 
   def create

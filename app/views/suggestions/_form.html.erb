@@ -31,12 +31,7 @@
                  class: "text-sm md:text-base text-dark font-bold" %>
       <p class="text-sm md:text-base text-dark-muted">Choose a category for your feedback</p>
     </div>
-    <%= form.collection_select :category_id,
-                           Category.all,
-                           :id,
-                           :capitalized_name,
-                           {},
-                           { class: "form-input" } %>
+    <%= form.select :category_id, @category_options, {}, { class: "form-input" } %>
   </div>
   <div class="space-y-4">
     <div class="space-y-1">
