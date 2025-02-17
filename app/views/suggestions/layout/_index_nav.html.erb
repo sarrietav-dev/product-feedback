@@ -1,4 +1,5 @@
 <nav
+  data-controller="menu"
   class="
     bg-gradient-to-tr md:bg-violet-50 md:bg-none from-rose-500 via-purple-600
     to-sky-500 flex justify-between items-center px-6 py-4 md:justify-evenly
@@ -16,11 +17,15 @@
     </p>
     <p class="font-medium text-sm text-white">Feedback board</p>
   </div>
-  <div class="fixed md:hidden top-[76px] left-0 w-screen h-screen bg-black/20"></div>
   <div
+    data-menu-target="backdrop"
+    class="fixed hidden md:hidden top-[76px] left-0 w-screen h-screen bg-black/20"
+  ></div>
+  <div
+    data-menu-target="menu"
     class="
-      fixed right-0 top-[76px] h-full w-72 md:w-auto p-6 md:p-0 md:relative bg-violet-50
-      z-10 md:bg-transparent flex flex-col md:flex-row lg:flex-col gap-6
+      fixed right-0 top-[76px] h-full w-72 md:w-auto p-6 md:p-0 md:relative
+      bg-violet-50 z-10 md:bg-transparent hidden flex-col md:flex-row lg:flex-col gap-6
     "
   >
     <%= form_with url: suggestions_path, method: :get, local: true, class: " flex w-full bg-white p-6 md:max-w-56 md:h-44 rounded-lg flex-wrap gap-2 items-start" do %>
@@ -80,7 +85,7 @@
       <span class="text-right"><%= live_count %></span>
     </div>
   </div>
-  <button class="md:hidden">
-    <%= image_tag "shared/mobile/icon-hamburger.svg" %>
+  <button class="md:hidden" data-action="menu#toggle">
+    <%= image_tag "shared/mobile/icon-hamburger.svg", data: { menu_target: "button", hamburger_src: asset_path("shared/mobile/icon-hamburger.svg"), close_src: asset_path("shared/mobile/icon-close.svg") } %>
   </button>
 </nav>
