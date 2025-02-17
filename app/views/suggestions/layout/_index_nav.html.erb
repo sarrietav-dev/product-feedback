@@ -2,8 +2,8 @@
   data-controller="menu"
   class="
     bg-gradient-to-tr md:bg-violet-50 md:bg-none from-rose-500 via-purple-600
-    to-sky-500 flex justify-between items-center px-6 py-4 md:justify-evenly
-    lg:flex-col lg:gap-6 lg:justify-start lg:p-0
+    to-sky-500 flex justify-between items-center px-6 py-4 md:justify-center
+    lg:flex-col lg:justify-start lg:p-0 gap-6
   "
 >
   <div
@@ -25,7 +25,7 @@
     data-menu-target="menu"
     class="
       fixed right-0 top-[76px] h-full w-72 md:w-auto p-6 md:p-0 md:relative
-      bg-violet-50 z-10 md:bg-transparent hidden flex-col md:flex-row lg:flex-col gap-6
+      bg-violet-50 z-10 md:bg-transparent hidden md:flex flex-col md:flex-row lg:flex-col gap-6 md:top-0
     "
   >
     <%= form_with url: suggestions_path, method: :get, local: true, class: " flex w-full bg-white p-6 md:max-w-56 md:h-44 rounded-lg flex-wrap gap-2 items-start" do %>
