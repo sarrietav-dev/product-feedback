@@ -1,4 +1,4 @@
-const defaultTheme = require("tailwindcss/defaultTheme");
+// // const defaultTheme = require("tailwindcss/defaultTheme");
 
 module.exports = {
   content: [
@@ -10,7 +10,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["Jost", ...defaultTheme.fontFamily.sans],
+//         //         sans: ["Jost", ...defaultTheme.fontFamily.sans],
       },
       colors: {
         primary: {
@@ -38,7 +38,7 @@ module.exports = {
     },
   },
   plugins: [
-    require("@tailwindcss/forms"),
+    // require("@tailwindcss/forms"),
     // require('@tailwindcss/typography'),
     // require('@tailwindcss/container-queries'),
   ],
