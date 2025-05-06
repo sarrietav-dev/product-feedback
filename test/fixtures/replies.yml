@@ -2,12 +2,12 @@
 
 one:
   content: MyString
-  user: one
+  user: john
   comment: one
-  replying_to: MyString
+  replying_to: jane
 
 two:
   content: MyString
-  user: two
+  user: jane
   comment: two
-  replying_to: MyString
+  replying_to: john

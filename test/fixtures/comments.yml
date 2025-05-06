@@ -2,10 +2,10 @@
 
 one:
   content: MyString
-  suggestion: one
-  user: one
+  suggestion: ui
+  user: john
 
 two:
   content: MyString
-  suggestion: two
-  user: two
+  suggestion: security
+  user: jane
