@@ -51,6 +51,8 @@ group :development, :test do
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
+
+  gem "ruby-lsp"
 end
 
 group :development do
@@ -73,4 +75,3 @@ gem "litestream", "~> 0.12.0"
 gem "aws-sdk-s3", "~> 1.185", require: false
 
 gem "inline_svg"
-
