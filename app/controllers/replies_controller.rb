@@ -16,7 +16,7 @@ class RepliesController < ApplicationController
         format.turbo_stream
       end
     else
-      render suggestion_path(@comment.suggestion), status: :unprocessable_entity
+      redirect_to suggestion_path(@comment.suggestion), status: :unprocessable_entity
     end
   end
 

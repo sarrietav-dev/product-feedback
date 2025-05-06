@@ -1,8 +1,8 @@
 <a href="<%= suggestion_path suggestion  %>">
   <article
     class="
-      p-6 bg-white rounded-lg space-y-4 flex flex-col border-t-8 h-full
-      <%= case suggestion.status
+      <%= suggestion.status %>-suggestion p-6 bg-white rounded-lg
+      space-y-4 flex flex-col border-t-8 h-full <%= case suggestion.status
         when 'in-progress' then 'border-t-fuchsia-600'
         when 'planned' then 'border-t-warning'
         when 'live' then 'border-t-blue-400'
