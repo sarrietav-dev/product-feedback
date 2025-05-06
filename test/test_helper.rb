@@ -18,6 +18,7 @@ module ActiveSupport
     fixtures :all
 
     # Add more helper methods to be used by all tests here...
+    Rails.application.config.assets.paths << Rails.root.join("test", "fixtures", "files")
   end
 end
 

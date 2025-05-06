@@ -3,13 +3,13 @@
 john:
   name: John Doe
   username: johndoe
-  profile_picture: johndoe.jpg
+  profile_picture: image-james.jpg
   email_address: john.doe@example.com
   password_digest: <%= password_digest %>
 
 jane:
   name: Jane Smith
   username: janesmith
-  profile_picture: janesmith.jpg
+  profile_picture: image-judah.jpg
   email_address: jane.smith@example.com
   password_digest: <%= password_digest %>
