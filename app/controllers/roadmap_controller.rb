@@ -1,15 +1,29 @@
 class RoadmapController < ApplicationController
   def index
-    @status_counts = Rails.cache.fetch("suggestion_status_counts", expires_in: 10.minutes) do
-      Suggestion.group(:status).count
+    max_updated_at = Suggestion.maximum(:updated_at)
+    cache_key = [
+      "roadmap/index",
+      params[:status] || "planned",
+      max_updated_at&.to_fs(:usec)
+    ].join("/")
+
+    cached_data = Rails.cache.fetch(cache_key, expires_in: 10.minutes) do
+      status_counts = Suggestion.group(:status).count
+      current_status = params[:status].presence || "planned"
+
+      {
+        status_counts: status_counts,
+        filtered_suggestions: Suggestion.includes(:category).where(status: current_status).order(:created_at).to_a,
+        suggestions_by_status: Suggestion.includes(:category).where(status: ["planned", "in-progress", "live"]).group_by(&:status),
+        current_status: current_status
+      }
     end
 
-    @current_status = params[:status].presence || "planned"
+    @status_counts = cached_data[:status_counts]
+    @current_status = cached_data[:current_status]
+    @filtered_suggestions = cached_data[:filtered_suggestions]
+    @suggestions_by_status = cached_data[:suggestions_by_status]
 
-    # Fetch only the current status suggestions for mobile view
-    @filtered_suggestions = Suggestion.includes(:category).where(status: @current_status).order(:created_at)
-
-    # Fetch all suggestions grouped by status for desktop view
-    @suggestions_by_status = Suggestion.includes(:category).where(status: ["planned", "in-progress", "live"]).group_by(&:status)
+    fresh_when etag: cache_key, last_modified: max_updated_at
   end
 end

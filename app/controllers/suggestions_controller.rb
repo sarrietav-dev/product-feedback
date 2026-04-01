@@ -10,24 +10,47 @@ class SuggestionsController < ApplicationController
     }
 
     sort_order = sort_options.fetch(params[:sort], "COUNT(upvotes.id) DESC")
+    cache_key = [
+      "suggestions/index",
+      params[:filter] || "all",
+      params[:sort] || "most-upvotes",
+      Suggestion.maximum(:updated_at)&.to_fs(:usec),
+      Comment.maximum(:updated_at)&.to_fs(:usec),
+      Upvote.maximum(:updated_at)&.to_fs(:usec)
+    ].join("/")
 
-    @suggestions = if params[:filter].present? && params[:filter] != "all"
-      category = Category.find_by(name: params[:filter])
-      Suggestion.where(category_id: category&.id)
-    else
-      Suggestion.all
+    cached_data = Rails.cache.fetch(cache_key, expires_in: 5.minutes) do
+      suggestions = if params[:filter].present? && params[:filter] != "all"
+        category = Category.find_by(name: params[:filter])
+        Suggestion.where(category_id: category&.id)
+      else
+        Suggestion.all
+      end
+
+      suggestions = suggestions
+        .left_joins(:upvotes, :comments)
+        .group(:id)
+        .order(sort_order)
+        .includes(:category, :user)
+        .to_a
+
+      status_counts = Suggestion.group(:status).count.transform_values(&:to_i)
+
+      {
+        suggestions: suggestions,
+        planned_count: status_counts.fetch("planned", 0),
+        in_progress_count: status_counts.fetch("in-progress", 0),
+        live_count: status_counts.fetch("live", 0),
+        max_updated_at: Suggestion.maximum(:updated_at)
+      }
     end
 
-    @suggestions = @suggestions
-      .left_joins(:upvotes, :comments)
-      .group(:id)
-      .order(sort_order)
+    @suggestions = cached_data[:suggestions]
+    @planned_count = cached_data[:planned_count]
+    @in_progress_count = cached_data[:in_progress_count]
+    @live_count = cached_data[:live_count]
 
-    status_counts = Suggestion.group(:status).count.transform_values(&:to_i)
-
-    @planned_count = status_counts.fetch("planned", 0)
-    @in_progress_count = status_counts.fetch("in-progress", 0)
-    @live_count = status_counts.fetch("live", 0)
+    fresh_when etag: cache_key, last_modified: cached_data[:max_updated_at]
 
     respond_to do |format|
       format.html
@@ -38,6 +61,8 @@ class SuggestionsController < ApplicationController
   def show
     @suggestion = Suggestion.includes(comments: [:user, :replies]).find(params[:id])
     @comment = Comment.new
+
+    fresh_when @suggestion
   end
 
   def new

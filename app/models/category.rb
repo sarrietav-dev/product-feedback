@@ -1,4 +1,6 @@
 class Category < ApplicationRecord
+  include CacheInvalidation
+
   has_many :suggestions
 
   def capitalized_name
