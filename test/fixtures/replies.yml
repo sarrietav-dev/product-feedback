@@ -1,0 +1,11 @@
+one:
+  content: Reply to first comment
+  comment: one
+  user: one
+  replying_to: two
+
+two:
+  content: Another reply
+  comment: one
+  user: two
+  replying_to: one

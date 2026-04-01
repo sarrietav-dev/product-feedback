@@ -1,0 +1,11 @@
+one:
+  suggestion: one
+  user: one
+
+two:
+  suggestion: one
+  user: two
+
+three:
+  suggestion: two
+  user: one

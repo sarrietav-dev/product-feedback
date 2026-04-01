@@ -77,17 +77,20 @@ class SuggestionsController < ApplicationController
     if @suggestion.save
       redirect_to @suggestion
     else
+      @category_options = Category.all.map { |c| [c.capitalized_name, c.id] }
       render :new, status: :unprocessable_entity
     end
   end
 
   def edit
+    @category_options = Category.all.map { |c| [c.capitalized_name, c.id] }
   end
 
   def update
     if @suggestion.update(suggestion_params)
       redirect_to @suggestion
     else
+      @category_options = Category.all.map { |c| [c.capitalized_name, c.id] }
       render :edit, status: :unprocessable_entity
     end
   end

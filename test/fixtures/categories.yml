@@ -1,0 +1,14 @@
+one:
+  name: Bug
+
+two:
+  name: Feature
+
+three:
+  name: Enhancement
+
+four:
+  name: UI
+
+five:
+  name: UX

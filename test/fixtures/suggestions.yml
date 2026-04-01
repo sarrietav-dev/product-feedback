@@ -1,0 +1,26 @@
+one:
+  title: First Suggestion
+  description: This is a test suggestion
+  user: one
+  category: one
+  status: planned
+  upvotes_count: 2
+  comments_count: 1
+
+two:
+  title: Second Suggestion
+  description: Another test suggestion
+  user: two
+  category: two
+  status: in-progress
+  upvotes_count: 1
+  comments_count: 0
+
+three:
+  title: Third Suggestion
+  description: A live suggestion
+  user: one
+  category: three
+  status: live
+  upvotes_count: 0
+  comments_count: 2

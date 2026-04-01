@@ -1,0 +1,14 @@
+one:
+  content: This is a test comment
+  suggestion: one
+  user: two
+
+two:
+  content: Another comment on suggestion one
+  suggestion: one
+  user: one
+
+three:
+  content: Comment on suggestion three
+  suggestion: three
+  user: two
