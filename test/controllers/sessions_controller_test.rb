@@ -30,4 +30,10 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to new_session_path
     assert_empty cookies[:session_id]
   end
+
+  test "redirects to login with 303 status for unauthenticated access" do
+    get new_suggestion_path
+    assert_response :see_other
+    assert_redirected_to new_session_path
+  end
 end
