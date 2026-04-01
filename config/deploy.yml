@@ -4,6 +4,8 @@ service: product_feedback
 # Name of the container image (use your-user/app-name on external registries).
 image: sarrietav-dev/product_feedback
 
+error_pages_path: public
+
 # Deploy to these servers.
 servers:
   web:
