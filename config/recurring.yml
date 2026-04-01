@@ -14,5 +14,5 @@ production:
     command: "SolidQueue::Job.clear_finished_in_batches(sleep_between_batches: 0.3)"
     schedule: every hour at minute 12
   reset_database:
-    command: "DISABLE_DATABASE_ENVIRONMENT_CHECK=1 rails db:reset"
+    command: "ENV['DISABLE_DATABASE_ENVIRONMENT_CHECK'] = '1'; system('bin/rails db:reset')"
     schedule: every 30 minutes
