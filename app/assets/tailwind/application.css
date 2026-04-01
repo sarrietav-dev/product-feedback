@@ -2,8 +2,6 @@
 
 @plugin "@tailwindcss/forms";
 
-@config '../../../config/tailwind.config.js';
-
 /*
   The default border color has changed to `currentColor` in Tailwind CSS v4,
   so we've added these compatibility styles to make sure everything still
@@ -20,6 +18,18 @@
   ::file-selector-button {
     border-color: var(--color-gray-200, currentColor);
   }
+}
+
+@theme {
+  --color-primary: #4661E6;
+  --color-primary-dark: #3741A6;
+  --color-secondary: #AD1FEA;
+  --color-dark: #3A4374;
+  --color-dark-muted: #647196;
+  --color-light: #F7F8FD;
+  --color-light-subtle: #F2F4FF;
+  --color-warning: #F49F85;
+  --color-info: #62BCFA;
 }
 
 @utility form-input {
