@@ -1,156 +1,335 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>503 - Service Unavailable</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-      background-color: #F7F8FD;
-      color: #3A4374;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 1rem;
-    }
-
-    .container {
-      max-width: 400px;
-      text-align: center;
-    }
-
-    .error-code {
-      font-size: 6rem;
-      font-weight: bold;
-      color: #4661E6;
-      line-height: 1;
-      margin-bottom: 1rem;
-    }
-
-    .error-title {
-      font-size: 1.5rem;
-      font-weight: bold;
-      color: #3A4374;
-      margin-bottom: 0.75rem;
-    }
-
-    .error-message {
-      color: #647196;
-      font-size: 1rem;
-      line-height: 1.6;
-      margin-bottom: 2rem;
-    }
-
-    .icon {
-      width: 80px;
-      height: 80px;
-      margin-bottom: 2rem;
-    }
-
-    .icon svg {
-      width: 100%;
-      height: 100%;
-    }
-
-    .icon .gear {
-      fill: #AD1FEA;
-    }
-
-    .icon .wrench {
-      fill: #4661E6;
-    }
-
-    .retry-button {
-      background-color: #4661E6;
-      color: white;
-      border: none;
-      padding: 0.75rem 1.5rem;
-      font-size: 1rem;
-      font-weight: bold;
-      border-radius: 0.75rem;
-      cursor: pointer;
-      text-decoration: none;
-      display: inline-block;
-      transition: background-color 0.2s ease;
-    }
-
-    .retry-button:hover {
-      background-color: #3741A6;
-    }
-
-    .status-indicator {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      color: #647196;
-      font-size: 0.875rem;
-      margin-top: 2rem;
-    }
-
-    .status-dot {
-      width: 8px;
-      height: 8px;
-      background-color: #F49F85;
-      border-radius: 50%;
-      animation: pulse 2s infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% {
-        opacity: 1;
-      }
-      50% {
-        opacity: 0.5;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .error-code {
-        font-size: 4rem;
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="color-scheme" content="light dark">
+    <meta name="theme-color" content="#f7f8fd">
+    <title>503 | Product Feedback</title>
+    <style>
+      :root {
+        color-scheme: light dark;
+        --bg: #f7f8fd;
+        --panel: rgba(255, 255, 255, 0.9);
+        --panel-border: rgba(58, 67, 116, 0.08);
+        --text: #3a4374;
+        --muted: #647196;
+        --primary: #4661e6;
+        --primary-dark: #3741a6;
+        --secondary: #ad1fea;
+        --warning: #f49f85;
+        --shadow: 0 24px 80px rgba(70, 97, 230, 0.16);
       }
 
-      .error-title {
-        font-size: 1.25rem;
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #0f1224;
+          --panel: rgba(24, 31, 62, 0.88);
+          --panel-border: rgba(255, 255, 255, 0.08);
+          --text: #f7f8fd;
+          --muted: #c8d0f2;
+          --primary: #7c91ff;
+          --primary-dark: #96a7ff;
+          --secondary: #d37cff;
+          --warning: #ffb4a0;
+          --shadow: 0 30px 90px rgba(0, 0, 0, 0.45);
+        }
       }
 
-      .icon {
-        width: 60px;
-        height: 60px;
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
       }
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <div class="icon">
-      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path class="gear" d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z"/>
-        <path class="gear" d="M19.43 12.98C19.47 12.66 19.5 12.34 19.5 12C19.5 11.66 19.47 11.34 19.43 11.02L21.54 9.37C21.73 9.22 21.78 8.95 21.66 8.73L19.66 5.27C19.54 5.05 19.27 4.96 19.05 5.05L16.56 6.05C16.04 5.65 15.48 5.32 14.87 5.07L14.49 2.42C14.46 2.18 14.25 2 14 2H10C9.75 2 9.54 2.18 9.51 2.42L9.13 5.07C8.52 5.32 7.96 5.66 7.44 6.05L4.95 5.05C4.73 4.96 4.46 5.05 4.34 5.27L2.34 8.73C2.21 8.95 2.27 9.22 2.46 9.37L4.57 11.02C4.53 11.34 4.5 11.67 4.5 12C4.5 12.33 4.53 12.66 4.57 12.98L2.46 14.63C2.27 14.78 2.21 15.05 2.34 15.27L4.34 18.73C4.46 18.95 4.73 19.03 4.95 18.95L7.44 17.94C7.96 18.34 8.52 18.68 9.13 18.93L9.51 21.58C9.54 21.82 9.75 22 10 22H14C14.25 22 14.46 21.82 14.49 21.58L14.87 18.93C15.48 18.68 16.04 18.34 16.56 17.95L19.05 18.95C19.27 19.04 19.54 18.95 19.66 18.73L21.66 15.27C21.78 15.05 21.73 14.78 21.54 14.63L19.43 12.98Z"/>
-        <path class="wrench" d="M14.7 6.3C14.3 5.9 13.7 5.9 13.3 6.3L10.6 9L11.3 9.7L14 7C14.4 6.6 15 6.6 15.4 7L18.4 10L16.7 11.7C16.3 12.1 16.3 12.7 16.7 13.1C17.1 13.5 17.7 13.5 18.1 13.1L21.1 10.1C21.5 9.7 21.5 9.1 21.1 8.7L14.7 6.3Z"/>
-        <path class="wrench" d="M5.3 17.7L7 16L4 13C3.6 12.6 3.6 12 4 11.6L7 8.6C7.4 8.2 8 8.2 8.4 8.6C8.8 9 8.8 9.6 8.4 10L6.7 11.7L9.7 14.7L11.4 13C11.8 12.6 12.4 12.6 12.8 13C13.2 13.4 13.2 14 12.8 14.4L9.8 17.4C9.4 17.8 8.8 17.8 8.4 17.4L5.3 17.7Z"/>
-      </svg>
-    </div>
 
-    <div class="error-code">503</div>
-    <h1 class="error-title">Service Unavailable</h1>
-    <p class="error-message">
-      We're currently performing maintenance on our servers. Please check back soon, or try refreshing the page.
-    </p>
+      html {
+        font-size: 16px;
+      }
 
-    <a href="/" class="retry-button">Try Again</a>
+      body {
+        margin: 0;
+        min-height: 100vh;
+        min-height: 100dvh;
+        display: grid;
+        place-items: center;
+        padding: 24px;
+        font-family: Inter, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        background:
+          radial-gradient(circle at top left, rgba(173, 31, 234, 0.18), transparent 28%),
+          radial-gradient(circle at bottom right, rgba(70, 97, 230, 0.18), transparent 34%),
+          var(--bg);
+        color: var(--text);
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+      }
 
-    <div class="status-indicator">
-      <span class="status-dot"></span>
-      <span>Maintenance in progress</span>
-    </div>
-  </div>
-</body>
+      .shell {
+        width: min(100%, 880px);
+        border: 1px solid var(--panel-border);
+        border-radius: 32px;
+        background: var(--panel);
+        box-shadow: var(--shadow);
+        overflow: hidden;
+        backdrop-filter: blur(14px);
+      }
+
+      .content {
+        display: grid;
+        gap: 40px;
+        padding: 32px;
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 0.95rem;
+        font-weight: 700;
+        letter-spacing: 0.01em;
+      }
+
+      .brand-mark {
+        width: 40px;
+        height: 40px;
+        border-radius: 14px;
+        background: linear-gradient(135deg, var(--secondary), var(--primary));
+        display: grid;
+        place-items: center;
+        box-shadow: 0 12px 24px rgba(70, 97, 230, 0.24);
+      }
+
+      .brand-mark svg {
+        width: 24px;
+        height: 24px;
+        fill: white;
+      }
+
+      .hero {
+        display: grid;
+        gap: 28px;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        width: fit-content;
+        padding: 8px 14px;
+        border-radius: 999px;
+        background: rgba(70, 97, 230, 0.1);
+        color: var(--primary);
+        font-size: 0.9rem;
+        font-weight: 700;
+      }
+
+      .eyebrow-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--warning);
+        box-shadow: 0 0 0 6px rgba(244, 159, 133, 0.16);
+      }
+
+      .hero-copy {
+        display: grid;
+        gap: 16px;
+        max-width: 38rem;
+      }
+
+      .code {
+        font-size: clamp(4rem, 16vw, 7rem);
+        line-height: 0.92;
+        font-weight: 800;
+        letter-spacing: -0.06em;
+        color: var(--primary);
+      }
+
+      h1 {
+        margin: 0;
+        font-size: clamp(2rem, 3vw, 3rem);
+        line-height: 1;
+        letter-spacing: -0.04em;
+      }
+
+      p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 1.05rem;
+        line-height: 1.7;
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+      }
+
+      .button {
+        appearance: none;
+        border: 0;
+        border-radius: 16px;
+        padding: 14px 20px;
+        font: inherit;
+        font-weight: 700;
+        text-decoration: none;
+        cursor: pointer;
+        transition: transform 0.18s ease, background-color 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+      }
+
+      .button:hover,
+      .button:focus-visible {
+        transform: translateY(-1px);
+      }
+
+      .button:focus-visible {
+        outline: 3px solid rgba(70, 97, 230, 0.28);
+        outline-offset: 2px;
+      }
+
+      .button-primary {
+        background: var(--primary);
+        color: #fff;
+      }
+
+      .button-primary:hover,
+      .button-primary:focus-visible {
+        background: var(--primary-dark);
+      }
+
+      .button-secondary {
+        border: 1px solid var(--panel-border);
+        background: transparent;
+        color: var(--text);
+      }
+
+      .button-secondary:hover,
+      .button-secondary:focus-visible {
+        border-color: rgba(70, 97, 230, 0.22);
+        background: rgba(70, 97, 230, 0.06);
+      }
+
+      .details {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 16px;
+      }
+
+      .detail {
+        padding: 18px;
+        border-radius: 20px;
+        background: rgba(70, 97, 230, 0.05);
+        border: 1px solid rgba(70, 97, 230, 0.08);
+      }
+
+      .detail-label {
+        margin-bottom: 8px;
+        color: var(--muted);
+        font-size: 0.82rem;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+
+      .detail-value {
+        font-size: 1rem;
+        font-weight: 700;
+        line-height: 1.5;
+      }
+
+      .footer {
+        padding: 0 32px 32px;
+        color: var(--muted);
+        font-size: 0.94rem;
+      }
+
+      @media (max-width: 720px) {
+        .content {
+          padding: 24px;
+          gap: 28px;
+        }
+
+        .footer {
+          padding: 0 24px 24px;
+        }
+      }
+
+      @media (max-width: 520px) {
+        .actions {
+          display: grid;
+        }
+
+        .button {
+          width: 100%;
+          text-align: center;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          animation: none !important;
+          transition: none !important;
+          scroll-behavior: auto !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="shell" aria-labelledby="error-title">
+      <div class="content">
+        <div class="brand" aria-label="Product Feedback">
+          <div class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2 14.2 5.7 18.5 5.5 18.3 9.8 22 12 18.3 14.2 18.5 18.5 14.2 18.3 12 22 9.8 18.3 5.5 18.5 5.7 14.2 2 12 5.7 9.8 5.5 5.5 9.8 5.7 12 2Zm0 6.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7Z"/>
+            </svg>
+          </div>
+          <span>Product Feedback</span>
+        </div>
+
+        <section class="hero">
+          <div class="eyebrow">
+            <span class="eyebrow-dot" aria-hidden="true"></span>
+            <span>Scheduled maintenance</span>
+          </div>
+
+          <div class="hero-copy">
+            <div class="code" aria-hidden="true">503</div>
+            <div>
+              <h1 id="error-title">We&rsquo;re applying an update right now.</h1>
+            </div>
+            <p>
+              Product Feedback is temporarily unavailable while we finish maintenance.
+              Your data is safe. Please try again in a moment or return to the homepage.
+            </p>
+          </div>
+
+          <div class="actions">
+            <button class="button button-primary" type="button" onclick="window.location.reload()">Try again</button>
+            <a class="button button-secondary" href="/">Go to homepage</a>
+          </div>
+
+          <section class="details" aria-label="Maintenance details">
+            <article class="detail">
+              <div class="detail-label">Status</div>
+              <div class="detail-value">Maintenance in progress</div>
+            </article>
+            <article class="detail">
+              <div class="detail-label">What to do</div>
+              <div class="detail-value">Refresh this page in a few minutes</div>
+            </article>
+            <article class="detail">
+              <div class="detail-label">Why you see this</div>
+              <div class="detail-value">We&rsquo;re shipping an update and bringing the app back online</div>
+            </article>
+          </section>
+        </section>
+      </div>
+
+      <div class="footer">
+        If you manage this application, verify the deployment and health checks before routing traffic back.
+      </div>
+    </main>
+  </body>
 </html>
