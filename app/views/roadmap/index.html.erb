@@ -1,0 +1,81 @@
+<div class="lg:container lg:mx-auto md:my-14 lg:max-w-6xl">
+  <div
+    class="
+      bg-dark px-6 py-7 flex justify-between md:mx-6 xl:mx-0 md:mb-8 lg:mb-12
+      md:rounded-lg
+    "
+  >
+    <div class="space-y-1">
+      <%= link_to 'javascript:history.back()', class: "flex items-center gap-4 group" do %>
+        <%= inline_svg_tag "shared/icon-arrow-left.svg", class: "*:!stroke-white" %>
+        <span class="group-hover:underline inline-block text-white font-bold text-sm">Go back</span>
+      <% end %>
+      <p class="font-bold text-white text-lg">Roadmap</p>
+    </div>
+    <%= link_to new_suggestion_path, class: "btn btn--accent flex items-center gap-2" do %>
+      <span class="text-center">+</span>
+      <span>Add feedback</span>
+    <% end %>
+  </div>
+
+  <% statuses = {
+    "planned" => "Ideas prioritized for research",
+    "in-progress" => "Features currently being developed",
+    "live" => "Released features",
+  } %>
+
+  <% current_status = @current_status %>
+  <!-- Mobile Tabs -->
+  <div class="border-b border-b-dark-muted/25 grid grid-cols-3 md:hidden">
+    <% statuses.each_key do |status| %>
+      <%= link_to "#{status.capitalize} (#{@status_counts[status].to_i})",
+      roadmap_index_path(status: status),
+      class: "tab #{"tab--selected" if current_status == status}" %>
+    <% end %>
+  </div>
+
+  <div class="p-6 xl:p-0">
+    <!-- Mobile View -->
+    <div class="space-y-1 mb-6 md:hidden">
+      <p class="font-bold text-lg text-dark">
+        <%= current_status.capitalize %>
+        (<%= @status_counts[current_status].to_i %>)
+      </p>
+      <p class="text-dark-muted text-sm"><%= statuses[current_status] %></p>
+    </div>
+    <!-- Mobile Suggestions List -->
+    <div class="flex flex-col gap-4 md:hidden">
+      <% cache ["roadmap", current_status] do %>
+        <%= render partial: "roadmap/suggestion", collection: @filtered_suggestions %>
+      <% end %>
+    </div>
+    <!-- Desktop View (Shows All Statuses) -->
+    <div class="grid-cols-3 gap-4 hidden md:grid auto-rows-min">
+      <!-- Headers Row -->
+      <% statuses.each do |status, description| %>
+        <div class="text-left mb-4">
+          <p class="text-dark font-bold"><%= status.capitalize %>
+            (<%= @status_counts[status].to_i %>)</p>
+          <p class="text-dark-muted"><%= description %></p>
+        </div>
+      <% end %>
+      <!-- Grid Layout for Suggestions -->
+      <% max_rows =
+        statuses.keys.map { |status| @suggestions_by_status[status]&.size.to_i }.max %>
+      <% (0...max_rows).each do |i| %>
+        <% statuses.keys.each do |status| %>
+          <div class="h-full">
+            <% cache ["roadmap", status, i] do %>
+              <% suggestion = @suggestions_by_status[status]&.at(i) %>
+              <% if suggestion %>
+                <%= render partial: "roadmap/suggestion", locals: { suggestion: suggestion } %>
+              <% else %>
+                <div class="invisible h-full"></div>
+              <% end %>
+            <% end %>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

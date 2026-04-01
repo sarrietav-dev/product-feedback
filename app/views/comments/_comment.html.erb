@@ -1,0 +1,33 @@
+<li class="py-6">
+  <article class="space-y-4">
+    <div class="flex items-center justify-between">
+      <div class="flex gap-4 items-center">
+        <%= image_tag(
+          comment.user.profile_picture || "placeholder.jpg",
+          class: "rounded-full size-10",
+        ) %>
+        <div>
+          <p class="text-sm md:text-base font-bold text-dark"><%= comment.user.name %></p>
+          <p class="text-sm md:text-base text-dark-muted">@<%= comment.user.username %></p>
+        </div>
+      </div>
+      <%= link_to "Reply",
+      new_comment_reply_path(comment),
+      class:
+        "bg-transparent text-primary text-xs md:text-sm font-semibold hover:underline",
+      data: {
+        turbo_frame: dom_id(Reply.new, dom_id(comment)),
+      } %>
+    </div>
+    <p class="text-sm md:text-base text-dark-muted break-words">
+      <%= comment.content %>
+    </p>
+
+    <%= turbo_frame_tag dom_id(Reply.new, dom_id(comment)) %>
+  </article>
+  <ul class="border-l border-b-dark-muted <%= "mt-6" if !comment.replies.blank? %>">
+    <%= turbo_frame_tag comment, class: "space-y-6 " do %>
+      <%= render comment.replies %>
+    <% end %>
+  </ul>
+</li>

@@ -1,0 +1,7 @@
+<%= turbo_stream.update dom_id(@suggestion, "desktop") do %>
+  <%= render "upvotes/upvote", suggestion: @suggestion, device: :desktop %>
+<% end %>
+
+<%= turbo_stream.update dom_id(@suggestion, "mobile") do %>
+  <%= render "upvotes/upvote", suggestion: @suggestion, device: :mobile %>
+<% end %>

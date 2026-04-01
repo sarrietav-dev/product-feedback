@@ -1,0 +1,37 @@
+<div
+  class="
+    bg-dark flex justify-between md:justify-start gap-8 px-6 py-2 md:mx-10
+    md:rounded-lg lg:w-full lg:mx-0 items-center
+  "
+>
+  <div class="hidden md:flex items-center gap-4">
+    <%= image_tag "suggestions/icon-suggestions.svg" %>
+    <p class="text-white text-lg font-bold" id="suggestion-count">
+      <%= pluralize(suggestions_count, "Suggestion") %>
+    </p>
+  </div>
+  <%= form_with url: suggestions_path, method: :get, data: {turbo_frame: "suggestions"} do |form| %>
+    <input type="hidden" name="filter" value="<%= params[:filter] %>">
+    <%= form.label :sort, "Sort by:", class: "text-white text-sm" %>
+    <%= form.select :sort,
+                options_for_select(
+                  [
+                    ["Most upvotes", "most-upvotes"],
+                    ["Least upvotes", "least-upvotes"],
+                    ["Most comments", "most-comments"],
+                    ["Least comments", "least-comments"],
+                  ],
+                  params[:sort],
+                ),
+                {},
+                onchange: "this.form.requestSubmit();",
+                class:
+                  "border-none bg-transparent text-white text-sm focus-visible:outline-none focus:ring-primary focus:ring-2 rounded" %>
+  <% end %>
+  <%= link_to new_suggestion_path, class: "bg-fuchsia-600 text-white font-bold flex rounded-xl px-4 py-2 items-center text-sm md:ml-auto gap-2" do %>
+    <span class="text-center">
+      +
+    </span>
+    <span class="hidden min-[425px]:inline">Add feedback</span>
+  <% end %>
+</div>
