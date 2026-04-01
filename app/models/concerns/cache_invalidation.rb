@@ -26,20 +26,18 @@ module CacheInvalidation
   def clear_list_caches
     case self.class.name
     when "Suggestion"
-      Rails.cache.delete_matched("suggestions/index/*")
-      Rails.cache.delete_matched("roadmap/index/*")
+      # Since we use timestamp-based cache keys, just update the timestamp
+      # The touch callbacks on associations will handle updating parent timestamps
       Rails.cache.delete("suggestion_status_counts")
     when "Comment"
-      Rails.cache.delete_matched("suggestions/index/*")
-      Rails.cache.delete_matched("suggestions/show/*")
-      Rails.cache.delete_matched("suggestions/comments/*")
+      # Touch association will update suggestion's updated_at, invalidating its cache
+      Rails.cache.delete("suggestion_status_counts")
     when "Reply"
-      Rails.cache.delete_matched("suggestions/show/*")
-      Rails.cache.delete_matched("suggestions/comments/*")
-      Rails.cache.delete_matched("comment/replies/*")
+      # Touch association will update comment's and suggestion's updated_at
+      Rails.cache.delete("suggestion_status_counts")
     when "Category"
-      Rails.cache.delete_matched("categories/*")
-      Rails.cache.delete_matched("suggestions/index/*")
+      Rails.cache.delete("categories/all")
+      Rails.cache.delete("suggestion_status_counts")
     end
   end
 
