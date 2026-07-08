@@ -59,7 +59,7 @@ class SuggestionsController < ApplicationController
   end
 
   def show
-    @suggestion = Suggestion.includes(comments: [:user, :replies]).find(params[:id])
+    @suggestion = Suggestion.includes(comments: [ :user, :replies ]).find(params[:id])
     @comment = Comment.new
 
     fresh_when @suggestion
@@ -67,7 +67,7 @@ class SuggestionsController < ApplicationController
 
   def new
     @suggestion = Suggestion.new
-    @category_options = Category.all.map { |c| [c.capitalized_name, c.id] }
+    @category_options = Category.all.map { |c| [ c.capitalized_name, c.id ] }
   end
 
   def create
@@ -77,20 +77,20 @@ class SuggestionsController < ApplicationController
     if @suggestion.save
       redirect_to @suggestion
     else
-      @category_options = Category.all.map { |c| [c.capitalized_name, c.id] }
+      @category_options = Category.all.map { |c| [ c.capitalized_name, c.id ] }
       render :new, status: :unprocessable_entity
     end
   end
 
   def edit
-    @category_options = Category.all.map { |c| [c.capitalized_name, c.id] }
+    @category_options = Category.all.map { |c| [ c.capitalized_name, c.id ] }
   end
 
   def update
     if @suggestion.update(suggestion_params)
       redirect_to @suggestion
     else
-      @category_options = Category.all.map { |c| [c.capitalized_name, c.id] }
+      @category_options = Category.all.map { |c| [ c.capitalized_name, c.id ] }
       render :edit, status: :unprocessable_entity
     end
   end
@@ -107,6 +107,6 @@ class SuggestionsController < ApplicationController
   end
 
   def suggestion_params
-    params.expect(suggestion: [:title, :description, :category_id])
+    params.expect(suggestion: [ :title, :description, :category_id ])
   end
 end

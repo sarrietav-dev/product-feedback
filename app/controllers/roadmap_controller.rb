@@ -14,7 +14,7 @@ class RoadmapController < ApplicationController
       {
         status_counts: status_counts,
         filtered_suggestions: Suggestion.includes(:category).where(status: current_status).order(:created_at).to_a,
-        suggestions_by_status: Suggestion.includes(:category).where(status: ["planned", "in-progress", "live"]).group_by(&:status),
+        suggestions_by_status: Suggestion.includes(:category).where(status: [ "planned", "in-progress", "live" ]).group_by(&:status),
         current_status: current_status
       }
     end

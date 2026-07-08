@@ -23,6 +23,6 @@ class RepliesController < ApplicationController
   private
 
   def reply_params
-    params.expect(reply: [:content])
+    params.expect(reply: [ :content ])
   end
 end

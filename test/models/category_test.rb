@@ -18,10 +18,10 @@ class CategoryTest < ActiveSupport::TestCase
   test "capitalized_name returns uppercase for names with 2 or fewer characters" do
     category = Category.new(name: "ui")
     assert_equal "UI", category.capitalized_name
-    
+
     category = Category.new(name: "ux")
     assert_equal "UX", category.capitalized_name
-    
+
     category = Category.new(name: "a")
     assert_equal "A", category.capitalized_name
   end

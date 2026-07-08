@@ -42,6 +42,6 @@ module CacheInvalidation
   end
 
   def clear_entity_cache
-    Rails.cache.delete([self.class.name.downcase, id])
+    Rails.cache.delete([ self.class.name.downcase, id ])
   end
 end
